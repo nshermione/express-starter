@@ -1,17 +1,15 @@
-// import { config } from "./config.mjs";
-import 'dotenv/config'; // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
+import 'dotenv/config'; 
 import { Logger } from './logger.mjs';
+import { CONFIG } from './config.mjs';
 
 export class System {
   constructor() {
     this.connections = {};
     this.logger = Logger.get(System.name);
-    this.logger.info(process.env.ENVIRONMENT); 
-    console.log('[System]', process.env.ENVIRONMENT);
+    this.logger.info(CONFIG.ENVIRONMENT);
   }
 
   async startDatabases(modelPaths = []) {
-
     // for (const dbName in config.DB_CONNECTION) {
     //   const dbConfig = config.DB_CONNECTION[dbName];
     //   System.connections[dbConfig.uri] = mongoose.createConnection(dbConfig.uri, dbConfig.options);
