@@ -1,0 +1,11 @@
+{
+  "type": "module",
+  "devDependencies": {
+    "lodash": "^4.17.21"
+  },
+  "dependencies": {
+    "dayjs": "^1.11.7",
+    "dotenv": "^16.0.3",
+    "winston": "^3.8.2"
+  }
+}
