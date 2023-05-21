@@ -1,20 +1,35 @@
 import 'dotenv/config'; 
+import fs from 'fs';
 import { Logger } from './logger.mjs';
 import { CONFIG } from './config.mjs';
+import { DB_TYPE } from './constant.mjs';
+import mongoose from 'mongoose';
 
 export class System {
   constructor() {
     this.connections = {};
     this.logger = Logger.get(System.name);
     this.logger.info(CONFIG.ENVIRONMENT);
+    this.startDatabases();
   }
 
-  async startDatabases(modelPaths = []) {
-    // for (const dbName in config.DB_CONNECTION) {
-    //   const dbConfig = config.DB_CONNECTION[dbName];
-    //   System.connections[dbConfig.uri] = mongoose.createConnection(dbConfig.uri, dbConfig.options);
-    //   console.log(`***** Connected to MongoDB: ${dbConfig.uri} *****`);
-    // }
+  async startMongoDatabase(dbConfig) {
+    const uri = `mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DATABASE}`;
+    this.connections[uri] = mongoose.createConnection(uri, dbConfig.OPTIONS);
+    console.log(`***** Connected to MongoDB: ${uri} *****`);
+   
+    // TODO: init models
+  }
+
+  async startDatabases() {
+    for (const dbName in CONFIG.DB) {
+      const dbConfig = CONFIG.DB[dbName];
+      switch (dbConfig.PROVIDER) {
+        case DB_TYPE.MONGODB:
+          await this.startMongoDatabase(dbConfig);
+          break;
+      }
+    }
     // for (const modelPath of modelPaths) {
     //   const files = fs.readdirSync(modelPath);
     //   for (const file of files) {
