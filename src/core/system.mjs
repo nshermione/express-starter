@@ -4,15 +4,18 @@ import { CONFIG } from './config.mjs';
 import { DB_TYPE } from './constant.mjs';
 import mongoose from 'mongoose';
 import path from 'path';
+import { Server } from './server.mjs';
 
 
 export const Connections = {};
 
 export class System {
+  startServer() {
+    this.server = new Server();
+  }
   constructor() {
     this.logger = Logger.get(System.name);
     this.logger.info(CONFIG.ENVIRONMENT);
-    this.startDatabases();
   }
 
   static getConnection(dbConfig) {

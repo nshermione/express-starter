@@ -5,7 +5,10 @@ export const AppContext = {
 }
 
 export class Application {
-  init() {
+  async init() {
     this.system = new System();
+
+    await this.system.startDatabases();
+    await this.system.startServer();
   }
 }
