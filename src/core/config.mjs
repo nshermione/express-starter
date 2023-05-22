@@ -1,4 +1,13 @@
 import _ from "lodash";
+import dotenv from 'dotenv';
+import fs from "fs";
+
+const existEnv = fs.existsSync('.env');
+if (existEnv) {
+  dotenv.config();
+} else {
+  dotenv.config({ path: '.env.local' });
+}
 
 const env = {};
 
