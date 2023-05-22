@@ -7,12 +7,12 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "App",
+      "name": "Api",
       "skipFiles": [
         "<node_internals>/**"
       ],
       "outputCapture": "std",
-      "program": "${workspaceFolder}\\index.mjs",
+      "program": "${workspaceFolder}\\api.mjs",
       "args": [
       ]
     }

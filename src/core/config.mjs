@@ -28,8 +28,4 @@ for (const key in process.env) {
   }
 }
 
-export const CONFIG = {
-  LOG_LEVEL: env.LOG_LEVEL || 'info',
-  ENVIRONMENT: env.ENVIRONMENT || 'DEVELOPMENT',
-  DB: env.DB
-};
+export const CONFIG = env;

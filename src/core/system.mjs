@@ -4,18 +4,17 @@ import { CONFIG } from './config.mjs';
 import { DB_TYPE } from './constant.mjs';
 import mongoose from 'mongoose';
 import path from 'path';
-import { Server } from './server.mjs';
+import { HttpServer } from './http.server.mjs';
 
 
 export const Connections = {};
 
 export class System {
-  startServer() {
-    this.server = new Server();
+  startHttpServer(serverConfig) {
+    this.server = new HttpServer(serverConfig);
   }
   constructor() {
     this.logger = Logger.get(System.name);
-    this.logger.info(CONFIG.ENVIRONMENT);
   }
 
   static getConnection(dbConfig) {
@@ -56,9 +55,9 @@ export class System {
     await Promise.all(importPromises);
   }
 
-  async startDatabases() {
-    for (const dbName in CONFIG.DB) {
-      const dbConfig = CONFIG.DB[dbName];
+  async startDatabases(dbConfigs) {
+    for (const dbName in dbConfigs) {
+      const dbConfig = dbConfigs[dbName];
       switch (dbConfig.PROVIDER) {
         case DB_TYPE.MONGODB:
           await this.startMongoDatabase(dbConfig);
