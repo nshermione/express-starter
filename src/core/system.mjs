@@ -10,9 +10,6 @@ import { HttpServer } from './http.server.mjs';
 export const Connections = {};
 
 export class System {
-  startHttpServer(serverConfig) {
-    this.server = new HttpServer(serverConfig);
-  }
   constructor() {
     this.logger = Logger.get(System.name);
   }
@@ -32,6 +29,11 @@ export class System {
       return model;
     }
   }
+  
+  startHttpServer(serverConfig) {
+    this.server = new HttpServer(serverConfig);
+  }
+
 
   async startMongoDatabase(dbConfig) {
     const uri = `mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DATABASE}`;
