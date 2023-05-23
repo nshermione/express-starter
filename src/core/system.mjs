@@ -1,10 +1,10 @@
 import fs from 'fs';
 import { Logger } from './logger.mjs';
 import { CONFIG } from './config.mjs';
-import { DB_TYPE } from './constant.mjs';
+import { DB_TYPE, HTTP_TYPE } from './constant.mjs';
 import mongoose from 'mongoose';
 import path from 'path';
-import { HttpServer } from './http.server.mjs';
+import { ExpressServer, HttpServer } from './http.server.mjs';
 
 
 export const Connections = {};
@@ -30,8 +30,13 @@ export class System {
     }
   }
   
-  startHttpServer(serverConfig) {
-    this.server = new HttpServer(serverConfig);
+  createHttpServer(serverConfig) {
+    const httpType = serverConfig.HTTP_TYPE || HTTP_TYPE.EXPRESS; 
+    const SERVERS = {
+      [HTTP_TYPE.EXPRESS]: ExpressServer
+    }
+    this.server = new SERVERS[httpType](serverConfig);
+    return this.server;
   }
 
 
