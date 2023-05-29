@@ -1,3 +1,4 @@
+import fs from 'fs';
 import express from 'express';
 import http from 'http';
 import mongoSanitize from 'express-mongo-sanitize';
@@ -43,27 +44,44 @@ export class ExpressServer extends HttpServer {
   addPublicPath(publicPath) {
     this.app.use(express.static(publicPath));
   }
-  addRoutes({ baseUrl = '', routes = [], handlers = [] }) {
+  addRoutes({ baseUrl = '', routes = [], preRequests = [], postRequests = []}) {
     const router = express.Router();
     const routeFunc = {
       [HTTP_METHOD.GET]: 'get',
       [HTTP_METHOD.POST]: 'post'
     }
     for (const route of routes) {
-      router[routeFunc[route.method || HTTP_METHOD.POST]](Utils.joinUrl(baseUrl, route.path), ...handlers, ...route.handlers);
+      router[routeFunc[route.method || HTTP_METHOD.POST]](Utils.joinUrl(baseUrl, route.path), ...preRequests, ...route.handlers, ...postRequests);
     }
     this.app.use(router);
   }
 
-  addControllers({ controllers = [], baseUrl = '', handlers = [] }) {
+  addControllers({ controllers = [], baseUrl = '', preRequests = [], postRequests = [] }) {
     for (const controller of controllers) {
       const instance = new controller();
       this.addRoutes({ 
         baseUrl, 
         routes: instance.getRoutes(),
-        handlers
+        preRequests,
+        postRequests
       });
     }
   }
-  
+
+  addPages({ pages = [], baseUrl = '', preRequests = [], postRequests = []}) {
+
+  }
+
+  async addControllerFolder({ folder, baseUrl = '', preRequests = [], postRequests = [] }) {
+    let controllerRelative = path.relative(Utils.dirname(import.meta.url), folder);
+    const files = fs.readdirSync(folder);
+    let controllers = [];
+    for (const file of files) {
+      let fileRelatvie = path.join(controllerRelative, file);
+      fileRelatvie = fileRelatvie.replace(/\\/g, '/');
+      const controllerClass = await import(fileRelatvie);
+      controllers.push(controllerClass.default);
+    }
+    this.addControllers({ controllers, baseUrl, preRequests, postRequests });
+  }
 }

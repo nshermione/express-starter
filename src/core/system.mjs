@@ -1,11 +1,9 @@
 import fs from 'fs';
 import { Logger } from './logger.mjs';
-import { CONFIG } from './config.mjs';
 import { DB_TYPE, HTTP_TYPE } from './constant.mjs';
 import mongoose from 'mongoose';
 import path from 'path';
-import { ExpressServer, HttpServer } from './http.server.mjs';
-
+import { ExpressServer } from './http.server.mjs';
 
 export const Connections = {};
 
@@ -17,7 +15,7 @@ export class System {
   static getConnection(dbConfig) {
     switch (dbConfig.PROVIDER) {
       case DB_TYPE.MONGODB:
-        const uri = `mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DATABASE}`; 
+        const uri = `mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DATABASE}`;
         return Connections[uri];
     }
   }
@@ -29,16 +27,15 @@ export class System {
       return model;
     }
   }
-  
+
   createHttpServer(serverConfig) {
-    const httpType = serverConfig.HTTP_TYPE || HTTP_TYPE.EXPRESS; 
+    const httpType = serverConfig.HTTP_TYPE || HTTP_TYPE.EXPRESS;
     const SERVERS = {
       [HTTP_TYPE.EXPRESS]: ExpressServer
     }
-    this.server = new SERVERS[httpType](serverConfig);
-    return this.server;
+    const server = new SERVERS[httpType](serverConfig);
+    return server;
   }
-
 
   async startMongoDatabase(dbConfig) {
     const uri = `mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DATABASE}`;
@@ -47,7 +44,7 @@ export class System {
     });
 
     this.logger.info(`***** Connected to MongoDB: ${uri} *****`);
- 
+
     const modelPath = path.resolve('src', dbConfig.MODEL_PATH);
     const files = fs.readdirSync(modelPath);
     const importPromises = [];

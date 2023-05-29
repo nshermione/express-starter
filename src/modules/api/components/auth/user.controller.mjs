@@ -1,6 +1,6 @@
-import { Controller } from "../../../core/controller.mjs";
+import { Controller } from "../../../../core/controller.mjs";
 
-export class UserController extends Controller {
+export default class UserController extends Controller {
 
   getRoutes() {
     return [
@@ -9,6 +9,7 @@ export class UserController extends Controller {
   }
 
   index(req, res) {
+    this.renderer.render()
     res.send({
       hello: 'world'
     })
