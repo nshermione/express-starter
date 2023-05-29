@@ -1,6 +1,6 @@
 import { Controller } from "../../../../core/controller.mjs";
 
-export default class UserController extends Controller {
+export default class AuthController extends Controller {
 
   getRoutes() {
     return [

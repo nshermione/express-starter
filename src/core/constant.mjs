@@ -7,7 +7,7 @@ export const HTTP_TYPE = {
 }
 
 export const RENDER_TYPE = {
-  PUG: 'pug'
+  PUG: 'pug',
 }
 
 export const HTTP_METHOD = {

@@ -5,13 +5,11 @@ export class Renderer {
     this.config = config;
   }
 
-  render(filePath, data) {
-
-  }
+  render(filePath, data = {}, res) { }
 }
 
 export class PugRenderer extends Renderer {
-  
+
   constructor(config) {
     super(config);
     this.cacheFunctions = {};
@@ -24,6 +22,7 @@ export class PugRenderer extends Renderer {
     if (res) {
       return res.send(this.cacheFunctions[filePath](data))
     }
-    return this.cacheFunctions[filePath](data); 
+    return this.cacheFunctions[filePath](data);
   }
 }
+
