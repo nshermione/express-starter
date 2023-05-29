@@ -1,3 +1,4 @@
+import fs from 'fs';
 import express from 'express';
 import http from 'http';
 import mongoSanitize from 'express-mongo-sanitize';
@@ -60,5 +61,18 @@ export class ExpressServer extends HttpServer {
       const instance = new controller();
       this.addRoutes(baseUrl, instance.getRoutes());
     }
+  }
+
+  async addControllerFolder(folder, baseUrl = '') {
+    let controllerRelative = path.relative(Utils.dirname(import.meta.url), folder);
+    const files = fs.readdirSync(folder);
+    let controllers = [];
+    for (const file of files) {
+      let fileRelatvie = path.join(controllerRelative, file);
+      fileRelatvie = fileRelatvie.replace(/\\/g, '/');
+      const controllerClass = await import(fileRelatvie);
+      controllers.push(controllerClass.default);
+    }
+    this.addControllers(controllers, baseUrl);
   }
 }
