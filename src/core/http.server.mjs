@@ -43,22 +43,27 @@ export class ExpressServer extends HttpServer {
   addPublicPath(publicPath) {
     this.app.use(express.static(publicPath));
   }
-  addRoutes(baseUrl, routes) {
+  addRoutes({ baseUrl = '', routes = [], handlers = [] }) {
     const router = express.Router();
     const routeFunc = {
       [HTTP_METHOD.GET]: 'get',
       [HTTP_METHOD.POST]: 'post'
     }
     for (const route of routes) {
-      router[routeFunc[route.method || HTTP_METHOD.POST]](Utils.joinUrl(baseUrl, route.path), ...route.handlers);
+      router[routeFunc[route.method || HTTP_METHOD.POST]](Utils.joinUrl(baseUrl, route.path), ...handlers, ...route.handlers);
     }
     this.app.use(router);
   }
 
-  addControllers(controllers, baseUrl = '') {
+  addControllers({ controllers = [], baseUrl = '', handlers = [] }) {
     for (const controller of controllers) {
       const instance = new controller();
-      this.addRoutes(baseUrl, instance.getRoutes());
+      this.addRoutes({ 
+        baseUrl, 
+        routes: instance.getRoutes(),
+        handlers
+      });
     }
   }
+  
 }
