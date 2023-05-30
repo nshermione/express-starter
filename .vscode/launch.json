@@ -12,7 +12,10 @@
         "<node_internals>/**"
       ],
       "outputCapture": "std",
-      "program": "${workspaceFolder}\\api.mjs",
+      "env": {
+        "NODE_APP": "api"
+      },
+      "program": "${workspaceFolder}\\apps\\api.mjs",
       "args": [
 
       ]
@@ -28,7 +31,7 @@
       "env": {
         "NODE_APP": "web" 
       },
-      "program": "${workspaceFolder}\\web.mjs",
+      "program": "${workspaceFolder}\\apps\\web.mjs",
       "args": [
         
       ]
