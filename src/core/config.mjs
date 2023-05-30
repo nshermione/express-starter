@@ -2,18 +2,15 @@ import _ from "lodash";
 import dotenv from 'dotenv';
 import fs from "fs";
 
-const NODE_ENV = process.env.NODE_ENV || '';
-if (NODE_ENV) {
-  dotenv.config({ path: '.env.' + NODE_ENV });
-} else {
-  const existEnv = fs.existsSync('.env');
-  if (existEnv) {
-    dotenv.config();
-  } else {
-    dotenv.config({ path: '.env.local' });
-  }
-}
+const NODE_APP = process.env.NODE_APP || '';
+let envFile = NODE_APP ? '.env.' + NODE_APP : '.env';
 
+const existEnv = fs.existsSync(envFile);
+if (existEnv) {
+  dotenv.config();
+} else {
+  dotenv.config({ path: envFile + '.local' });
+}
 
 const env = {};
 

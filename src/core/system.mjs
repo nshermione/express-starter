@@ -60,6 +60,8 @@ export class System {
   }
 
   async startDatabases(dbConfigs) {
+    if (!dbConfigs) return;
+    
     for (const dbName in dbConfigs) {
       const dbConfig = dbConfigs[dbName];
       switch (dbConfig.PROVIDER) {

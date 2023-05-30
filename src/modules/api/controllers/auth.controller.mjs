@@ -1,7 +1,10 @@
-import { Controller } from "../../../../core/controller.mjs";
+import { Controller } from "../../../core/controller.mjs";
 
 export default class AuthController extends Controller {
-
+  constructor() {
+    super(import.meta);
+  }
+  
   getRoutes() {
     return [
       { method: 'GET', path: '/user/info', handlers: [this.index] }
@@ -9,9 +12,8 @@ export default class AuthController extends Controller {
   }
 
   index(req, res) {
-    this.renderer.render()
     res.send({
-      hello: 'world'
+      succes: true 
     })
   }
 }

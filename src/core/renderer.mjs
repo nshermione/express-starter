@@ -1,4 +1,5 @@
 import pug from 'pug';
+import fs from 'fs';
 import { CONFIG } from './config.mjs';
 
 export class Renderer {
@@ -18,11 +19,16 @@ export class PugRenderer extends Renderer {
 
   render(filePath, data, res) {
     if (!this.cacheFunctions[filePath] || CONFIG.ENVIRONMENT !== 'production') {
-      this.cacheFunctions[filePath] = pug.compileFile(filePath);
+      if (fs.existsSync(filePath)) {
+        this.cacheFunctions[filePath] = pug.compileFile(filePath);
+      } else {
+        this.cacheFunctions[filePath] = this.cacheFunctions[filePath] || '';
+      }
     }
     if (res) {
       return res.send(this.cacheFunctions[filePath](data))
     }
+ 
     return this.cacheFunctions[filePath](data);
   }
 }

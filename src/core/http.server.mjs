@@ -8,7 +8,7 @@ import helmet from 'helmet';
 import { CONFIG } from './config.mjs';
 import { Logger } from './logger.mjs';
 import path from 'path';
-import { HTTP_METHOD, HTTP_TYPE } from './constant.mjs';
+import { HTTP_METHOD } from './constant.mjs';
 import { Utils } from './utils.mjs';
 
 export class HttpServer {

@@ -14,6 +14,23 @@
       "outputCapture": "std",
       "program": "${workspaceFolder}\\api.mjs",
       "args": [
+
+      ]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Web",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "outputCapture": "std",
+      "env": {
+        "NODE_APP": "web" 
+      },
+      "program": "${workspaceFolder}\\web.mjs",
+      "args": [
+        
       ]
     }
   ]
