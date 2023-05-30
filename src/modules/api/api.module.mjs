@@ -10,6 +10,10 @@ export class ApiModule extends Module {
     httpServer.addControllerFolder({
       folder: path.join(Utils.dirname(import.meta.url), './controllers')
     })
+    // TODO: swagger 
+    // TODO: refresh token, access token
+    // TODO: mysql database
+
     httpServer.start();
   }
 }
