@@ -24,7 +24,7 @@ export class ExpressServer extends HttpServer {
     this.app = express();
     this.http = http.createServer(this.app);
 
-    if (CONFIG.ENVIRONMENT !== 'DEVELOPMENT') {
+    if (CONFIG.ENVIRONMENT !== 'development') {
       this.app.use(helmet({
         contentSecurityPolicy: false,
       }));

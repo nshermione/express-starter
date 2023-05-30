@@ -1,4 +1,3 @@
-import { RENDER_TYPE } from "../../../../core/constant.mjs";
 import { Controller } from "../../../../core/controller.mjs";
 
 export default class HomeController extends Controller {

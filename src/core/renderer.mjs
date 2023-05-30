@@ -1,4 +1,5 @@
 import pug from 'pug';
+import { CONFIG } from './config.mjs';
 
 export class Renderer {
   constructor(config) {
@@ -16,7 +17,7 @@ export class PugRenderer extends Renderer {
   }
 
   render(filePath, data, res) {
-    if (!this.cacheFunctions[filePath]) {
+    if (!this.cacheFunctions[filePath] || CONFIG.ENVIRONMENT !== 'production') {
       this.cacheFunctions[filePath] = pug.compileFile(filePath);
     }
     if (res) {

@@ -6,4 +6,26 @@ html(lang="en")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     title Document
   body  
-    block content
+    div(id='app')
+      block content
+
+    script(type="importmap").
+      {
+        "imports": {
+          "vue": "https://cdnjs.cloudflare.com/ajax/libs/vue/3.3.4/vue.esm-browser.js"
+        }
+      }
+    script(type="module").
+      import { createApp } from 'vue'
+      export const app = createApp({})
+      window.app = app;
+
+    block scripts
+    
+    script(type="module").
+      for (const name in window.vueComponents) {
+        app.component(name, window.vueComponents[name]);
+      }
+      if (document.getElementById('app')) {
+        app.mount('#app')
+      }
