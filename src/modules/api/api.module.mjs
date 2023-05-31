@@ -10,7 +10,7 @@ export class ApiModule extends Module {
     const httpServer = await this.system.createHttpServer(CONFIG.API.HTTP_SERVER);
     httpServer.addSwaggerUI(
       '/docs', 
-      JSON.parse(fs.readFileSync(path.join(Utils.dirname(import.meta.url), './swagger.json')).toString())
+      JSON.parse(fs.readFileSync(path.join(Utils.dirname(import.meta.url), './docs/swagger.json')).toString())
     ); 
     httpServer.addControllerFolder({
       folder: path.join(Utils.dirname(import.meta.url), './controllers')

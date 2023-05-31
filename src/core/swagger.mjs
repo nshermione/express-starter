@@ -16,4 +16,51 @@ export class ExpressSwagger {
       }))
     });
   }
+
+  parseParam(route, routeParams, parameterType = 'body') {
+    let params = [];
+    let method = route.method.toLowerCase();
+    for (const name in routeParams) {
+      const param = routeParams[name];
+      let ext = {};
+      if (param.type === "array") {
+        ext.items = param.items;
+        ext.collectionFormat = param.collectionFormat || "multi";
+      }
+      params.push(
+        {
+          name,
+          in: parameterType,
+          description: param.description || "",
+          required: param.required || true,
+          example: param.example,
+          default: param.default, 
+          type: param.type || "string",
+          ...ext,
+        }
+      )
+    }
+    return params;
+  }
+
+  parseRoute(route) {
+    const doc = route.doc || {};
+    const apiDoc = {
+      tags: doc.tags || [],
+      summary: doc.summary || "",
+      description: doc.description || "",
+      operationId: route.path,
+      consumes: doc.consumes || ["application/json", "application/xml"],
+      produces: doc.produces || ["application/json", "application/xml"],
+      parameters: doc.body.map(item => this.parseParam(route, item, 'body'))
+                    .concat(doc.query.map(item => this.parseParam(route, item, 'query'))),
+      responses: doc.responses || {},
+      security: [{ "api_key": [] }]
+    }
+
+    return {
+      [route.path]
+      [route.method.toLowerCase()]: apiDoc
+    }
+  }
 }
