@@ -10,6 +10,8 @@ import { Logger } from './logger.mjs';
 import path from 'path';
 import { HTTP_METHOD } from './constant.mjs';
 import { Utils } from './utils.mjs';
+import { ExpressSwagger } from './swagger.mjs';
+
 
 export class HttpServer {
   constructor(serverConfig) {
@@ -60,8 +62,8 @@ export class ExpressServer extends HttpServer {
   addControllers({ controllers = [], baseUrl = '', preRequests = [], postRequests = [] }) {
     for (const controller of controllers) {
       const instance = new controller();
-      this.addRoutes({ 
-        baseUrl, 
+      this.addRoutes({
+        baseUrl,
         routes: instance.getRoutes(),
         preRequests,
         controller: instance,
@@ -70,7 +72,7 @@ export class ExpressServer extends HttpServer {
     }
   }
 
-  addPages({ pages = [], baseUrl = '', preRequests = [], postRequests = []}) {
+  addPages({ pages = [], baseUrl = '', preRequests = [], postRequests = [] }) {
 
   }
 
@@ -85,5 +87,9 @@ export class ExpressServer extends HttpServer {
       controllers.push(controllerClass.default);
     }
     this.addControllers({ controllers, baseUrl, preRequests, postRequests });
+  }
+
+  async addSwaggerUI(baseUrl, swaggerJson) {
+    this.swagger = new ExpressSwagger({ httpServer: this, baseUrl, swaggerJson });
   }
 }
