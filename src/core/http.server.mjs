@@ -9,7 +9,7 @@ import { CONFIG } from './config.mjs';
 import { Logger } from './logger.mjs';
 import path from 'path';
 import { HTTP_METHOD } from './constant.mjs';
-import { Utils } from './utils.mjs';
+import { FileUtils } from './utils.mjs';
 import { ExpressSwagger } from './swagger.mjs';
 
 
@@ -54,12 +54,13 @@ export class ExpressServer extends HttpServer {
     }
 
     for (const route of routes) {
-      router[routeFunc[route.method || HTTP_METHOD.POST]](Utils.joinUrl(baseUrl, route.path), ...preRequests, ...route.handlers.map(item => item.bind(controller)), ...postRequests);
+      router[routeFunc[route.method || HTTP_METHOD.POST]](FileUtils.joinUrl(baseUrl, route.path), ...preRequests, ...route.handlers.map(item => item.bind(controller)), ...postRequests);
     }
     this.app.use(router);
   }
 
   addControllers({ controllers = [], baseUrl = '', preRequests = [], postRequests = [] }) {
+    let result = [];
     for (const controller of controllers) {
       const instance = new controller();
       this.addRoutes({
@@ -69,7 +70,9 @@ export class ExpressServer extends HttpServer {
         controller: instance,
         postRequests
       });
+      result.push(instance);
     }
+    return result;
   }
 
   addPages({ pages = [], baseUrl = '', preRequests = [], postRequests = [] }) {
@@ -77,7 +80,7 @@ export class ExpressServer extends HttpServer {
   }
 
   async addControllerFolder({ folder, baseUrl = '', preRequests = [], postRequests = [] }) {
-    let controllerRelative = path.relative(Utils.dirname(import.meta.url), folder);
+    let controllerRelative = path.relative(FileUtils.dirname(import.meta.url), folder);
     const files = fs.readdirSync(folder);
     let controllers = [];
     for (const file of files) {
@@ -86,10 +89,10 @@ export class ExpressServer extends HttpServer {
       const controllerClass = await import(fileRelatvie);
       controllers.push(controllerClass.default);
     }
-    this.addControllers({ controllers, baseUrl, preRequests, postRequests });
+    return this.addControllers({ controllers, baseUrl, preRequests, postRequests });
   }
 
-  async addSwaggerUI(baseUrl, swaggerJson) {
-    this.swagger = new ExpressSwagger({ httpServer: this, baseUrl, swaggerJson });
+  async addSwaggerUI({ baseUrl, swaggerJson, controllers }) {
+    this.swagger = new ExpressSwagger({ httpServer: this, baseUrl, swaggerJson, controllers});
   }
 }

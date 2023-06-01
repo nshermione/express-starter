@@ -28,7 +28,6 @@ const SwaggerUtils = {
                   SwaggerUIStandalonePreset
                 ],
                 plugins: [
-                  SwaggerUIBundle.plugins.DownloadUrl
                 ],
                 ...${JSON.stringify(config)}
               });

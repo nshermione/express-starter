@@ -1,8 +1,8 @@
 export const AuthDocs = {
   GET_USER_INFO: {
-    tags: ["Auth"],
+    tags: ["user"],
     summary: 'Get user info',
-    body: {
+    query: {
       userId: { type: "string", example: "abcdef123" },
     },
     responses: { "405": { "description": "Invalid input" } }

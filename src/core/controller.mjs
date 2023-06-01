@@ -1,6 +1,6 @@
 import { RENDER_TYPE } from "./constant.mjs";
 import { PugRenderer } from "./renderer.mjs";
-import { Utils } from "./utils.mjs";
+import { FileUtils } from "./utils.mjs";
 
 export class Controller {
   constructor(meta, config = {}) {
@@ -9,7 +9,7 @@ export class Controller {
       renderer: RENDER_TYPE.PUG
     });
     if (this.meta.url) {
-      this.__dirname = Utils.dirname(this.meta.url);
+      this.__dirname = FileUtils.dirname(this.meta.url);
     }
   }
 
@@ -22,7 +22,7 @@ export class Controller {
   }
 
   render(filePath, data, res) {
-    return this.renderer.render(Utils.joinUrl(this.__dirname, filePath), data, res);
+    return this.renderer.render(FileUtils.joinUrl(this.__dirname, filePath), data, res);
   }
 
   getRoutes() { return []; }
