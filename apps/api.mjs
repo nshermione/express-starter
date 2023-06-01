@@ -3,7 +3,7 @@
  * This app is API only purpose, do not use to render anything
  */
 
-import { Application } from "../src/core/app.mjs";
+import { Application } from "../src/core/App.mjs";
 import { ApiModule } from "../src/modules/api/ApiModule.mjs";
 import { CommonModule } from "../src/modules/common/CommonModule.mjs";
 

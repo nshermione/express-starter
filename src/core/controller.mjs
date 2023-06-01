@@ -1,6 +1,6 @@
-import { RENDER_TYPE } from "./constant.mjs";
-import { PugRenderer } from "./renderer.mjs";
-import { FileUtils } from "./utils.mjs";
+import { RENDER_TYPE } from "./Constant.mjs";
+import { PugRenderer } from "./Renderer.mjs";
+import { FileUtils } from "./Utils.mjs";
 
 export class Controller {
   constructor(meta, config = {}) {

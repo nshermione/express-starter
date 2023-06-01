@@ -1,6 +1,6 @@
 import pug from 'pug';
 import fs from 'fs';
-import { CONFIG } from './config.mjs';
+import { CONFIG } from './Config.mjs';
 
 export class Renderer {
   constructor(config) {

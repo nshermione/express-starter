@@ -1,4 +1,4 @@
-import { Application } from "../src/core/app.mjs";
+import { Application } from "../src/core/App.mjs";
 import { CommonModule } from "../src/modules/common/CommonModule.mjs";
 import { WebModule } from "../src/modules/web/WebModule.mjs";
 

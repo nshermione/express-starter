@@ -1,4 +1,4 @@
-import { Module } from "../../core/module.mjs";
+import { Module } from "../../core/Module.mjs";
 
 export class CronModule extends Module {
   async setup() {

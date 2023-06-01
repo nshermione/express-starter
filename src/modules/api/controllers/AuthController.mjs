@@ -1,5 +1,5 @@
-import { Controller } from "../../../core/controller.mjs";
-import { UserModel } from "../../common/models/user.model.mjs";
+import { Controller } from "../../../core/Controller.mjs";
+import { UserModel } from "../../common/models/UserModel.mjs";
 import { AuthDocs } from "../docs/AuthDocs.mjs";
 import jsonwebtoken from "jsonwebtoken";
 

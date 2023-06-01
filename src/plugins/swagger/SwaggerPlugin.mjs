@@ -1,5 +1,5 @@
-import { ExpressServer } from "../../core/http.server.mjs";
-import { HttpServerPlugin } from "../../core/plugin.mjs";
+import { ExpressServer } from "../../core/HttpServer.mjs";
+import { HttpServerPlugin } from "../../core/Plugin.mjs";
 import { ExpressSwagger } from "./Swagger.mjs";
 
 export class SwaggerPlugin extends HttpServerPlugin {

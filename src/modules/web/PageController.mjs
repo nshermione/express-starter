@@ -1,4 +1,4 @@
-import { Controller } from "../../core/controller.mjs";
+import { Controller } from "../../core/Controller.mjs";
 
 export default class PageController extends Controller {
   constructor() {
@@ -13,10 +13,10 @@ export default class PageController extends Controller {
   }
 
   async home(req, res) {
-    res.send(this.render('pages/home.page.pug', { title: 'Home' }));
+    res.send(this.render('pages/HomePage.pug', { title: 'Home' }));
   }
 
   async about(req, res) {
-    res.send(this.render('pages/about.page.pug', { title: 'About' }));
+    res.send(this.render('pages/AboutPage.pug', { title: 'About' }));
   }
 }

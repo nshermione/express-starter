@@ -1,5 +1,5 @@
-import { CONFIG } from "../../core/config.mjs";
-import { Module } from "../../core/module.mjs";
+import { CONFIG } from "../../core/Config.mjs";
+import { Module } from "../../core/Module.mjs";
 
 /**
  * Module for shared components of project:

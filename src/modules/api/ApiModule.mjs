@@ -1,8 +1,8 @@
 import path from 'path';
 import fs from 'fs';
-import { CONFIG } from "../../core/config.mjs";
-import { Module } from "../../core/module.mjs";
-import { FileUtils } from '../../core/utils.mjs';
+import { CONFIG } from "../../core/Config.mjs";
+import { Module } from "../../core/Module.mjs";
+import { FileUtils } from '../../core/Utils.mjs';
 import { HttpErrorPlugin } from '../../plugins/http/HttpErrorPlugin.mjs';
 import { SwaggerPlugin } from '../../plugins/swagger/SwaggerPlugin.mjs';
 

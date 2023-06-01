@@ -1,6 +1,6 @@
-import { CONFIG } from "../../../core/config.mjs";
-import { MongoModel } from "../../../core/model.mjs";
-import { System } from "../../../core/system.mjs";
+import { CONFIG } from "../../../core/Config.mjs";
+import { MongoModel } from "../../../core/Model.mjs";
+import { System } from "../../../core/System.mjs";
 
 const UserSchema = {
   username: { type: String, unique: true, require: true },

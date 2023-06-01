@@ -1,4 +1,4 @@
-import { Controller } from "./controller.mjs";
+import { Controller } from "./Controller.mjs";
 
 export class Page extends Controller {
    constructor(config) {

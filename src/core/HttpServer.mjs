@@ -5,13 +5,13 @@ import mongoSanitize from 'express-mongo-sanitize';
 import compression from 'compression';
 import cors from 'cors';
 import helmet from 'helmet';
-import { CONFIG } from './config.mjs';
-import { Logger } from './logger.mjs';
+import { CONFIG } from './Config.mjs';
+import { Logger } from './Logger.mjs';
 import path from 'path';
-import { HTTP_METHOD } from './constant.mjs';
-import { FileUtils } from './utils.mjs';
+import { HTTP_METHOD } from './Constant.mjs';
+import { FileUtils } from './Utils.mjs';
 import { ExpressSwagger } from '../plugins/swagger/Swagger.mjs';
-import { PlugAndPlay } from './plugin.mjs';
+import { PlugAndPlay } from './Plugin.mjs';
 
 
 export class HttpServer extends PlugAndPlay {

@@ -1,7 +1,7 @@
 import path from 'path';
-import { Module } from "../../core/module.mjs";
-import { FileUtils } from "../../core/utils.mjs";
-import { CONFIG } from '../../core/config.mjs';
+import { Module } from "../../core/Module.mjs";
+import { FileUtils } from "../../core/Utils.mjs";
+import { CONFIG } from '../../core/Config.mjs';
 import PageController from './PageController.mjs';
 
 export class WebModule extends Module {

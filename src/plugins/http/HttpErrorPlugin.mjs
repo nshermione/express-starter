@@ -1,4 +1,4 @@
-import { HttpServerPlugin } from "../../core/plugin.mjs";
+import { HttpServerPlugin } from "../../core/Plugin.mjs";
 
 export class HttpErrorPlugin extends HttpServerPlugin {
 

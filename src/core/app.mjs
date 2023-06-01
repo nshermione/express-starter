@@ -1,5 +1,5 @@
-import { CONFIG } from "./config.mjs";
-import { Logger } from "./logger.mjs";
+import { CONFIG } from "./Config.mjs";
+import { Logger } from "./Logger.mjs";
 
 export class Application {
   async start(modules) {

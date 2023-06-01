@@ -1,4 +1,4 @@
-import { Logger } from "./logger.mjs";
+import { Logger } from "./Logger.mjs";
 
 export class PlugAndPlay {
   constructor() {
