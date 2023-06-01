@@ -10,6 +10,7 @@ export class ApiModule extends Module {
     const httpServer = await this.system.createHttpServer(CONFIG.HTTP_SERVER);
 
     let controllers = await httpServer.addControllerFolder({
+      baseUrl: '',
       folder: FileUtils.resolveFilePath({ meta: import.meta, filePath: './controllers' })
     })
     httpServer.addSwaggerUI({
@@ -17,6 +18,7 @@ export class ApiModule extends Module {
       swaggerJson: FileUtils.readJsonFile({ meta: import.meta, filePath: './docs/swagger.json' }),
       controllers
     });
+    // TODO: error handling, locales
     // TODO: refresh token, access token
     // TODO: mysql database
 
