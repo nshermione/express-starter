@@ -4,8 +4,8 @@
  */
 
 import { Application } from "../src/core/app.mjs";
-import { ApiModule } from "../src/modules/api/api.module.mjs";
-import { CommonModule } from "../src/modules/common/common.module.mjs";
+import { ApiModule } from "../src/modules/api/ApiModule.mjs";
+import { CommonModule } from "../src/modules/common/CommonModule.mjs";
 
 
 const app = new Application();

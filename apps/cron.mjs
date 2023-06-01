@@ -1,6 +1,6 @@
 import { Application } from "../src/core/app.mjs";
-import { CommonModule } from "../src/modules/common/common.module.mjs";
-import { CronModule } from "../src/modules/cron/cron.module.mjs";
+import { CommonModule } from "../src/modules/common/CommonModule.mjs";
+import { CronModule } from "../src/modules/cron/CronModule.mjs";
 
 const app = new Application();
 

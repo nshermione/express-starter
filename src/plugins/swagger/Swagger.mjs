@@ -1,6 +1,6 @@
 import express from 'express';
 import { getAbsoluteFSPath, SwaggerUtils } from './swagger-ui-dist/index.js';
-import { CONFIG } from './config.mjs';
+import { CONFIG } from '../../core/config.mjs';
 
 export class ExpressSwagger {
   constructor({ httpServer, baseUrl = '/docs', swaggerJson, controllers = [] }) {

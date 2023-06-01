@@ -1,6 +1,6 @@
 import { Controller } from "../../../core/controller.mjs";
 import { UserModel } from "../../common/models/user.model.mjs";
-import { AuthDocs } from "../docs/auth.docs.mjs";
+import { AuthDocs } from "../docs/AuthDocs.mjs";
 import jsonwebtoken from "jsonwebtoken";
 
 export default class AuthController extends Controller {

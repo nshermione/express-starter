@@ -2,7 +2,7 @@ import path from 'path';
 import { Module } from "../../core/module.mjs";
 import { FileUtils } from "../../core/utils.mjs";
 import { CONFIG } from '../../core/config.mjs';
-import PageController from './page.controller.mjs';
+import PageController from './PageController.mjs';
 
 export class WebModule extends Module {
   async setup() {

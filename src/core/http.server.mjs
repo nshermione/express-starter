@@ -10,11 +10,13 @@ import { Logger } from './logger.mjs';
 import path from 'path';
 import { HTTP_METHOD } from './constant.mjs';
 import { FileUtils } from './utils.mjs';
-import { ExpressSwagger } from './swagger.mjs';
+import { ExpressSwagger } from '../plugins/swagger/Swagger.mjs';
+import { PlugAndPlay } from './plugin.mjs';
 
 
-export class HttpServer {
+export class HttpServer extends PlugAndPlay {
   constructor(serverConfig) {
+    super();
     this.serverConfig = serverConfig;
   }
 }
@@ -22,9 +24,9 @@ export class HttpServer {
 export class ExpressServer extends HttpServer {
   constructor(serverConfig) {
     super(serverConfig);
-    this.logger = Logger.get(ExpressServer.name);
     this.app = express();
     this.http = http.createServer(this.app);
+    this.controllers = [];
 
     if (CONFIG.ENVIRONMENT !== 'development') {
       this.app.use(helmet({
@@ -53,8 +55,18 @@ export class ExpressServer extends HttpServer {
       [HTTP_METHOD.POST]: 'post'
     }
 
+    const pluginPreRequest = this.plugins.filter(item => item.preRequest).map(item => item.preRequest);
+    const pluginPostRequest = this.plugins.filter(item => item.postRequest).map(item => item.postRequest);
+
     for (const route of routes) {
-      router[routeFunc[route.method || HTTP_METHOD.POST]](FileUtils.joinUrl(baseUrl, route.path), ...preRequests, ...route.handlers.map(item => item.bind(controller)), ...postRequests);
+      router[routeFunc[route.method || HTTP_METHOD.POST]](
+        FileUtils.joinUrl(baseUrl, route.path), 
+        ...pluginPreRequest, 
+        ...preRequests, 
+        ...route.handlers.map(item => item.bind(controller)), 
+        ...pluginPostRequest, 
+        ...postRequests
+      );
     }
     this.app.use(router);
   }
@@ -71,12 +83,13 @@ export class ExpressServer extends HttpServer {
         postRequests
       });
       result.push(instance);
+      this.controllers.push(instance);
     }
     return result;
   }
 
-  addPages({ pages = [], baseUrl = '', preRequests = [], postRequests = [] }) {
-
+  getControllers() {
+    return this.controllers;
   }
 
   async addControllerFolder({ folder, baseUrl = '', preRequests = [], postRequests = [] }) {
@@ -90,9 +103,5 @@ export class ExpressServer extends HttpServer {
       controllers.push(controllerClass.default);
     }
     return this.addControllers({ controllers, baseUrl, preRequests, postRequests });
-  }
-
-  async addSwaggerUI({ baseUrl, swaggerJson, controllers }) {
-    this.swagger = new ExpressSwagger({ httpServer: this, baseUrl, swaggerJson, controllers});
   }
 }
