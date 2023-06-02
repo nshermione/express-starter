@@ -1,4 +1,5 @@
 import { CONFIG } from "../../core/Config.mjs";
+import { Database } from "../../core/Database.mjs";
 import { Module } from "../../core/Module.mjs";
 
 /**
@@ -11,6 +12,7 @@ import { Module } from "../../core/Module.mjs";
 export class CommonModule extends Module {
   async setup() {
     super.setup();
-    await this.system.startDatabases(CONFIG.DB);
+    const db = new Database();
+    await db.startDatabases(CONFIG.DB);
   }
 }

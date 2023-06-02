@@ -3,26 +3,27 @@ import fs from 'fs';
 import { CONFIG } from "../../core/Config.mjs";
 import { Module } from "../../core/Module.mjs";
 import { FileUtils } from '../../core/Utils.mjs';
-import { HttpErrorPlugin } from '../../plugins/http/HttpErrorPlugin.mjs';
+import { ErrorCatcherPlugin } from '../../plugins/http/ErrorCatcherPlugin.mjs';
 import { SwaggerPlugin } from '../../plugins/swagger/SwaggerPlugin.mjs';
+import { HttpServer } from '../../core/HttpServer.mjs';
+import { ControllerFolderPlugin } from '../../plugins/http/ControllerFolderPlugin.mjs';
 
 export class ApiModule extends Module {
   async setup() {
     super.setup();
 
-    const httpServer = await this.system.createHttpServer(CONFIG.HTTP_SERVER);
-
-    await httpServer.addControllerFolder({
-      baseUrl: '',
-      folder: FileUtils.resolveFilePath({ meta: import.meta, filePath: './controllers' })
-    })
+    const httpServer = await new HttpServer(CONFIG.HTTP_SERVER);
 
     await httpServer.use(
-      new HttpErrorPlugin(),
+      new ControllerFolderPlugin({
+        baseUrl: '',
+        folder: FileUtils.resolveFilePath({ meta: import.meta, filePath: './controllers' })
+      }),
       new SwaggerPlugin({
         baseUrl: '/docs',
         swaggerJson: FileUtils.readJsonFile({ meta: import.meta, filePath: './docs/swagger.json' })
-      })
+      }),
+      new ErrorCatcherPlugin(), // Use at the last position to catch error
     );
 
     // TODO: error handling, locales

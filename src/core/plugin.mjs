@@ -3,7 +3,7 @@ import { Logger } from "./Logger.mjs";
 export class PlugAndPlay {
   constructor() {
     this.plugins = [];
-    this.logger = Logger.get(PlugAndPlay.name);
+    this.logger = Logger.get(this.constructor.name);
   }
 
   async use(...plugins) {
@@ -12,7 +12,7 @@ export class PlugAndPlay {
         await plugin.setup(this);
         this.plugins.push(plugin); 
       } catch (err) {
-        this.logger.error('Can not setup the plugin:', plugin.name);
+        this.logger.error(`Can not setup the plugin: ${plugin.constructor.name}. `, err);
       }
     }
   } 

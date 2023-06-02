@@ -6,24 +6,16 @@ import compression from 'compression';
 import cors from 'cors';
 import helmet from 'helmet';
 import { CONFIG } from './Config.mjs';
-import { Logger } from './Logger.mjs';
 import path from 'path';
 import { HTTP_METHOD } from './Constant.mjs';
 import { FileUtils } from './Utils.mjs';
-import { ExpressSwagger } from '../plugins/swagger/Swagger.mjs';
 import { PlugAndPlay } from './Plugin.mjs';
-
+import { Logger } from './Logger.mjs';
 
 export class HttpServer extends PlugAndPlay {
   constructor(serverConfig) {
     super();
     this.serverConfig = serverConfig;
-  }
-}
-
-export class ExpressServer extends HttpServer {
-  constructor(serverConfig) {
-    super(serverConfig);
     this.app = express();
     this.http = http.createServer(this.app);
     this.controllers = [];
@@ -42,7 +34,7 @@ export class ExpressServer extends HttpServer {
   start() {
     let port = this.serverConfig.PORT || 3000;
     this.http.listen(port, () => {
-      this.logger.info(`***** Listening to socket port [${port}] - http://localhost:${port} *****`);
+      this.logger.info(`Listening to socket port [${port}] - http://localhost:${port}`);
     });
   }
   addPublicPath(publicPath) {
@@ -90,18 +82,5 @@ export class ExpressServer extends HttpServer {
 
   getControllers() {
     return this.controllers;
-  }
-
-  async addControllerFolder({ folder, baseUrl = '', preRequests = [], postRequests = [] }) {
-    let controllerRelative = path.relative(FileUtils.dirname(import.meta.url), folder);
-    const files = fs.readdirSync(folder);
-    let controllers = [];
-    for (const file of files) {
-      let fileRelatvie = path.join(controllerRelative, file);
-      fileRelatvie = fileRelatvie.replace(/\\/g, '/');
-      const controllerClass = await import(fileRelatvie);
-      controllers.push(controllerClass.default);
-    }
-    return this.addControllers({ controllers, baseUrl, preRequests, postRequests });
   }
 }

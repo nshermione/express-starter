@@ -1,15 +1,14 @@
-import fs from 'fs';
-import { Logger } from './Logger.mjs';
-import { DB_TYPE, HTTP_TYPE } from './Constant.mjs';
-import mongoose from 'mongoose';
-import path from 'path';
-import { ExpressServer } from './HttpServer.mjs';
+import mongoose from "mongoose";
+import fs from "fs";
+import path from "path";
+import { DB_TYPE } from "./Constant.mjs";
+import { Logger } from "./Logger.mjs";
 
 export const Connections = {};
 
-export class System {
+export class Database {
   constructor() {
-    this.logger = Logger.get(System.name);
+    this.logger = Logger.get(this.constructor.name);
   }
 
   static getConnection(dbConfig) {
@@ -21,20 +20,11 @@ export class System {
   }
 
   static createMongoModel(dbConfig, table, schema) {
-    const connection = System.getConnection(dbConfig);
+    const connection = Database.getConnection(dbConfig);
     if (connection) {
       const model = connection.model(table, new mongoose.Schema(schema));
       return model;
     }
-  }
-
-  createHttpServer(serverConfig) {
-    const httpType = serverConfig.HTTP_TYPE || HTTP_TYPE.EXPRESS;
-    const SERVERS = {
-      [HTTP_TYPE.EXPRESS]: ExpressServer
-    }
-    const server = new SERVERS[httpType](serverConfig);
-    return server;
   }
 
   async startMongoDatabase(dbConfig) {
@@ -43,7 +33,7 @@ export class System {
       autoIndex: true
     });
 
-    this.logger.info(`***** Connected to MongoDB: ${uri} *****`);
+    this.logger.info(`Connected to MongoDB: ${uri}`);
 
     const modelPath = path.resolve('src', dbConfig.MODEL_PATH);
     const files = fs.readdirSync(modelPath);
@@ -61,7 +51,7 @@ export class System {
 
   async startDatabases(dbConfigs) {
     if (!dbConfigs) return;
-    
+
     for (const dbName in dbConfigs) {
       const dbConfig = dbConfigs[dbName];
       switch (dbConfig.PROVIDER) {

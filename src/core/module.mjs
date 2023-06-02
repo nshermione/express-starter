@@ -1,5 +1,4 @@
 import { PlugAndPlay } from "./Plugin.mjs";
-import { System } from "./System.mjs";
 
 export class Module extends PlugAndPlay {
   constructor() {
@@ -7,7 +6,6 @@ export class Module extends PlugAndPlay {
   }
 
   setup() {
-    this.system = new System(); 
   }
 }
 

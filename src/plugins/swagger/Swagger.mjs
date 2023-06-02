@@ -2,7 +2,7 @@ import express from 'express';
 import { getAbsoluteFSPath, SwaggerUtils } from './swagger-ui-dist/index.js';
 import { CONFIG } from '../../core/Config.mjs';
 
-export class ExpressSwagger {
+export class Swagger {
   constructor({ httpServer, baseUrl = '/docs', swaggerJson, controllers = [] }) {
     let paths = this.getPathsFromControllers(controllers);
     httpServer.app.use(baseUrl, express.static(getAbsoluteFSPath()));

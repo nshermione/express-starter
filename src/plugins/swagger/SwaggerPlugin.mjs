@@ -1,6 +1,6 @@
-import { ExpressServer } from "../../core/HttpServer.mjs";
+import { HttpServer } from "../../core/HttpServer.mjs";
 import { HttpServerPlugin } from "../../core/Plugin.mjs";
-import { ExpressSwagger } from "./Swagger.mjs";
+import { Swagger } from "./Swagger.mjs";
 
 export class SwaggerPlugin extends HttpServerPlugin {
   constructor({ baseUrl, swaggerJson  }) {
@@ -10,14 +10,12 @@ export class SwaggerPlugin extends HttpServerPlugin {
   }
 
   async setup(httpServer) {
-    if (httpServer instanceof ExpressServer) {
-      const controllers = httpServer.getControllers();
-      this.swagger = new ExpressSwagger({ 
-        httpServer, 
-        baseUrl: this.baseUrl, 
-        swaggerJson: this.swaggerJson, 
-        controllers
-      });
-    }
+    const controllers = httpServer.getControllers();
+    this.swagger = new Swagger({ 
+      httpServer, 
+      baseUrl: this.baseUrl, 
+      swaggerJson: this.swaggerJson, 
+      controllers
+    });
   }
 }
