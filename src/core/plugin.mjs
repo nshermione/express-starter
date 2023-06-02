@@ -25,6 +25,10 @@ export class ModulePlugin {
 }
 
 export class HttpServerPlugin {
+  constructor() {
+    this.logger = Logger.get(this.constructor.name);
+  }
+  
   async setup(httpServer) {
     this.httpServer = httpServer;
   }

@@ -16,11 +16,11 @@ export const FileUtils = {
     } 
     return filePath;
   },
-  readJsonFile({ meta, filePath }) {
+  readJsonFile({ meta = null, filePath }) {
     let realPath = filePath;
     if (meta) {
       realPath = path.join(FileUtils.dirname(meta.url), realPath)
     }
     return JSON.parse(fs.readFileSync(realPath).toString());
-  }
+  },
 }

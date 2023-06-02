@@ -10,7 +10,6 @@ import path from 'path';
 import { HTTP_METHOD } from './Constant.mjs';
 import { FileUtils } from './Utils.mjs';
 import { PlugAndPlay } from './Plugin.mjs';
-import { Logger } from './Logger.mjs';
 
 export class HttpServer extends PlugAndPlay {
   constructor(serverConfig) {
