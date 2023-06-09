@@ -1,4 +1,5 @@
 import { Controller } from "../../../core/Controller.mjs";
+import { HttpError } from "../../../core/Error.mjs";
 import { __ } from "../../../core/Locale.mjs";
 import { UserModel } from "../../common/models/UserModel.mjs";
 import { AuthDocs } from "../docs/AuthDocs.mjs";
@@ -25,7 +26,7 @@ export default class AuthController extends Controller {
     const { username, password } = req.body;
     const user = await UserModel.findOne({ username  });
     if (!user) {
-      throw new Error(__('Invalid user, please try again!'));
+      throw new HttpError(__('Invalid user, please try again!'));
     }
     const accessToken = jsonwebtoken.sign({
       username,
