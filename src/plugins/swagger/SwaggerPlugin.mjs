@@ -17,5 +17,6 @@ export class SwaggerPlugin extends HttpServerPlugin {
       swaggerJson: this.swaggerJson, 
       controllers
     });
+    this.logger.info(`Docs at ${this.baseUrl}`)
   }
 }

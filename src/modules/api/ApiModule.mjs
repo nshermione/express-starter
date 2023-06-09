@@ -1,5 +1,3 @@
-import path from 'path';
-import fs from 'fs';
 import { CONFIG } from "../../core/Config.mjs";
 import { Module } from "../../core/Module.mjs";
 import { FileUtils } from '../../core/Utils.mjs';
@@ -7,7 +5,6 @@ import { HttpErrorPlugin } from '../../plugins/http/HttpErrorPlugin.mjs';
 import { SwaggerPlugin } from '../../plugins/swagger/SwaggerPlugin.mjs';
 import { HttpServer } from '../../core/HttpServer.mjs';
 import { ControllerFolderPlugin } from '../../plugins/http/ControllerFolderPlugin.mjs';
-import { Locale } from '../../core/Locale.mjs';
 import { HttpLocalePlugin } from '../../plugins/http/HttpLocalePlugin.mjs';
 
 export class ApiModule extends Module {

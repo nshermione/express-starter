@@ -11,6 +11,10 @@ import { HTTP_METHOD } from './Constant.mjs';
 import { FileUtils } from './Utils.mjs';
 import { PlugAndPlay } from './Plugin.mjs';
 
+const catchAsync = (fn) => (req, res, next) => {
+  Promise.resolve(fn(req, res, next)).catch((err) => next(err));
+};
+
 export class HttpServer extends PlugAndPlay {
   constructor(serverConfig) {
     super();
@@ -28,6 +32,10 @@ export class HttpServer extends PlugAndPlay {
     this.app.use(mongoSanitize());
     this.app.use(compression());
     this.app.use(cors());
+    this.app.use((req, res, next) => {
+      req.body = req.body || {};
+      next();
+    });
     this.app.options('*', cors());
   }
   start() {
@@ -52,15 +60,25 @@ export class HttpServer extends PlugAndPlay {
     for (const route of routes) {
       router[routeFunc[route.method || HTTP_METHOD.POST]](
         FileUtils.joinUrl(baseUrl, route.path), 
-        ...pluginPreRequest, 
-        ...preRequests, 
-        ...route.handlers.map(item => item.bind(controller)), 
-        ...pluginPostRequest, 
-        ...postRequests
+        ...this.catchHandlersException(
+          ...pluginPreRequest, 
+          ...preRequests, 
+          ...route.handlers.map(item => item.bind(controller)), 
+          ...pluginPostRequest, 
+          ...postRequests
+        )
       );
     }
     this.app.use(router);
   }
+
+  catchHandlersException(...handlers) {
+    let result = [];
+    for (const handler of handlers) {
+      result.push(catchAsync(handler));
+    }
+    return result;
+  } 
 
   addControllers({ controllers = [], baseUrl = '', preRequests = [], postRequests = [] }) {
     let result = [];

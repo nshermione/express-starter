@@ -11,6 +11,7 @@ export class PlugAndPlay {
       try {
         await plugin.setup(this);
         this.plugins.push(plugin); 
+        this.logger.info(`Loaded plugin: ${plugin.constructor.name}`);
       } catch (err) {
         this.logger.error(`Can not setup the plugin: ${plugin.constructor.name}. `, err);
       }

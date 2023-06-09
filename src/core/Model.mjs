@@ -7,6 +7,10 @@ export class MongoModel {
     return this.model.findOne(...args);
   } 
 
+  async create(...args) {
+    return this.model.create(...args);
+  }
+
   async find(...args) {
     return this.model.findOne(...args);
   } 
