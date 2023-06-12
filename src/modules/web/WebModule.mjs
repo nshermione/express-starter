@@ -14,7 +14,10 @@ export class WebModule extends Module {
       controllers: [
         PageController
       ],
-    }) 
+    })
+    
+    // TODO: vite build js files
+    
     httpServer.start();
   }
 }

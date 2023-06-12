@@ -3,7 +3,7 @@ import fs from "fs";
 import { HttpServerPlugin } from "../../core/Plugin.mjs";
 import { FileUtils } from "../../core/Utils.mjs";
 
-export class ControllerFolderPlugin extends HttpServerPlugin {
+export class ControllerPlugin extends HttpServerPlugin {
   constructor({ baseUrl = '', folder = '', controllers = [], preRequests = [], postRequests = [] }) {
     super();
     this.baseUrl = baseUrl;

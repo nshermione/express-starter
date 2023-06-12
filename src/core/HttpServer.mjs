@@ -3,6 +3,7 @@ import express from 'express';
 import http from 'http';
 import mongoSanitize from 'express-mongo-sanitize';
 import compression from 'compression';
+import bodyParser from 'body-parser';
 import cors from 'cors';
 import helmet from 'helmet';
 import { CONFIG } from './Config.mjs';
@@ -29,13 +30,11 @@ export class HttpServer extends PlugAndPlay {
       }));
     }
 
+    this.app.use(bodyParser.urlencoded({ extended: false }))
+    this.app.use(bodyParser.json())
     this.app.use(mongoSanitize());
     this.app.use(compression());
     this.app.use(cors());
-    this.app.use((req, res, next) => {
-      req.body = req.body || {};
-      next();
-    });
     this.app.options('*', cors());
   }
   start() {

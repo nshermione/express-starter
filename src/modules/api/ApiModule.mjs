@@ -1,11 +1,11 @@
 import { CONFIG } from "../../core/Config.mjs";
 import { Module } from "../../core/Module.mjs";
 import { FileUtils } from '../../core/Utils.mjs';
-import { HttpErrorPlugin } from '../../plugins/http/HttpErrorPlugin.mjs';
+import { ErrorPlugin } from '../../plugins/http/ErrorPlugin.mjs';
 import { SwaggerPlugin } from '../../plugins/swagger/SwaggerPlugin.mjs';
 import { HttpServer } from '../../core/HttpServer.mjs';
-import { ControllerFolderPlugin } from '../../plugins/http/ControllerFolderPlugin.mjs';
-import { HttpLocalePlugin } from '../../plugins/http/HttpLocalePlugin.mjs';
+import { ControllerPlugin } from '../../plugins/http/ControllerPlugin.mjs';
+import { HttpLocalePlugin as LocalePlugin } from '../../plugins/http/LocalePlugin.mjs';
 
 export class ApiModule extends Module {
   async setup() {
@@ -14,10 +14,10 @@ export class ApiModule extends Module {
     const httpServer = await new HttpServer(CONFIG.HTTP_SERVER);
 
     await httpServer.use(
-      new HttpLocalePlugin({
+      new LocalePlugin({
         folder: FileUtils.resolveFilePath({ meta: import.meta, filePath: './locales' })
       }),
-      new ControllerFolderPlugin({
+      new ControllerPlugin({
         baseUrl: '',
         folder: FileUtils.resolveFilePath({ meta: import.meta, filePath: './controllers' })
       }),
@@ -25,7 +25,7 @@ export class ApiModule extends Module {
         baseUrl: '/docs',
         swaggerJson: FileUtils.readJsonFile({ meta: import.meta, filePath: './docs/swagger.json' })
       }),
-      new HttpErrorPlugin(), // Use at the last position to catch error
+      new ErrorPlugin(), // Use at the last position to catch error
     );
 
     // TODO: refresh token, access token

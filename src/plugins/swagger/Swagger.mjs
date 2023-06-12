@@ -11,6 +11,11 @@ export class Swagger {
         // Override swagger.json "paths" field
         swaggerJson.paths = paths;
       }
+      if (['http', 'https'].includes(req.protocol)) {
+        swaggerJson.schemes = [req.protocol];
+      } else {
+        swaggerJson.schemes = ['http'];
+      }
       swaggerJson.host = CONFIG.SWAGGER.HOST || '';
        // Override swagger.json "definitions" field
       swaggerJson.definitions = {};
@@ -38,7 +43,7 @@ export class Swagger {
     return paths;
   }
 
-  parseParam(route, doc, parameterType = 'body') {
+  parseParam(route, doc, parameterType = 'query') {
     let params = [];
     let method = route.method.toLowerCase();
     let routeParams = doc[parameterType];
@@ -53,11 +58,11 @@ export class Swagger {
         {
           name,
           in: parameterType,
-          description: param.description || "",
+          description: param.description || name || "",
           required: param.required || true,
           example: param.example,
           default: param.default,
-          type: param.type || "string",
+          type: param.type || "string", 
           ...ext,
         }
       )
@@ -74,10 +79,9 @@ export class Swagger {
       summary: doc.summary || "",
       description: doc.description || "",
       operationId: route.path,
-      consumes: doc.consumes || ["application/json", "application/xml"],
-      produces: doc.produces || ["application/json", "application/xml"],
-      parameters: this.parseParam(route, doc, 'body')
-        .concat(this.parseParam(route, doc, 'query')),
+      consumes: doc.consumes || ["application/json"],
+      produces: doc.produces || ["application/json"],
+      parameters: doc.parameters || [],
       responses: doc.responses || {},
       security: [{ "api_key": [] }]
     }

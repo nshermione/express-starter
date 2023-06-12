@@ -3,7 +3,7 @@ import { HttpError } from "../../core/Error.mjs";
 import { HttpServerPlugin } from "../../core/Plugin.mjs";
 import { CONFIG } from "../../core/Config.mjs";
 
-export class HttpErrorPlugin extends HttpServerPlugin {
+export class ErrorPlugin extends HttpServerPlugin {
   async setup(httpServer) {
     super.setup(httpServer);
     httpServer.app.use((req, res, next) => {
