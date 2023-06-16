@@ -14,8 +14,13 @@ export default defineConfig({
     // generate manifest.json in outDir
     manifest: true,
     rollupOptions: {
+      output: {
+        dir: resolve('./dist')
+      },
       // overwrite default .html entry
-      input: resolve('./public/js/home.js')
+      input: {
+        main: resolve('./client/main.js')
+      }
     },
   },
 })

@@ -5,6 +5,12 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "command": "npm run spa-dev",
+      "name": "SPA client",
+      "request": "launch",
+      "type": "node-terminal"
+    },
+    {
       "type": "node",
       "request": "launch",
       "name": "Api",
@@ -35,6 +41,31 @@
       "args": [
         
       ]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "SPA server",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "outputCapture": "std",
+      "env": {
+        "NODE_APP": "spa" 
+      },
+
+      "program": "${workspaceFolder}\\apps\\spa.mjs",
+      "args": [
+        
+      ]
+    },
+  
+  ],
+  "compounds": [
+    {
+      "name": "SPA All",
+      "configurations": ["SPA server", "SPA client"],
+      "stopAll": true
     }
   ]
 }

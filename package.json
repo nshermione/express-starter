@@ -4,8 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite --config src/modules/web/vite.config.js",
-    "build": "vite build --config src/modules/web/vite.config.js"
+    "spa-dev": "vite --config src/modules/spa/vite.config.js",
+    "spa-build": "vite build --config src/modules/spa/vite.config.js"
   },
   "devDependencies": {
     "lodash": "^4.17.21",

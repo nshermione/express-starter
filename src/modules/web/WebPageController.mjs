@@ -1,6 +1,6 @@
 import { Controller } from "../../core/Controller.mjs";
 
-export default class PageController extends Controller {
+export default class WebPageController extends Controller {
   constructor() {
     super(import.meta);
   }
