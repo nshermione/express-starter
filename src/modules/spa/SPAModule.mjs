@@ -8,7 +8,7 @@ import { HttpServer } from '../../core/HttpServer.mjs';
 export class SPAModule extends Module {
   async setup() {
     super.setup();
-    const httpServer = new HttpServer(CONFIG.WEB.HTTP_SERVER);
+    const httpServer = new HttpServer(CONFIG.HTTP_SERVER);
     httpServer.addPublicPath(path.join(FileUtils.dirname(import.meta.url), './public'));
     httpServer.addControllers({
       controllers: [
