@@ -15,11 +15,11 @@ export class ApiModule extends Module {
 
     await httpServer.use(
       new LocalePlugin({
-        folder: FileUtils.resolveFilePath({ meta: import.meta, filePath: './locales' })
+        folder: FileUtils.resolvePath({ meta: import.meta, path: './locales' })
       }),
       new ControllerPlugin({
         baseUrl: '',
-        folder: FileUtils.resolveFilePath({ meta: import.meta, filePath: './controllers' })
+        folder: FileUtils.resolvePath({ meta: import.meta, path: './controllers' })
       }),
       new SwaggerPlugin({
         baseUrl: '/docs',

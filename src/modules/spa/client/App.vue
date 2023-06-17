@@ -2,20 +2,18 @@
   <div>
     Single page app
     <Header></Header>
+    <img :src="'/img/cat.jpg'" />
+    <div class="bgImg"></div>
   </div>
 </template>
 
-<script>
+<script setup>
 import Header from './Header.vue';
 
-export default {
-  components: { Header },
-  setup () {
-    return {}
-  }
-}
 </script>
 
 <style lang="scss" scoped>
-
+  .bgImg {
+    background: url('/img/cat.jpg');
+  }
 </style>

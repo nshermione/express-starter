@@ -13,10 +13,10 @@ export default class WebPageController extends Controller {
   }
 
   async home(req, res) {
-    res.send(this.render('pages/HomePage.pug', { title: 'Home' }));
+    res.view('pages/HomePage.pug', { title: 'Home' });
   }
 
   async about(req, res) {
-    res.send(this.render('pages/AboutPage.pug', { title: 'About' }));
+    res.view('pages/AboutPage.pug', { title: 'About' });
   }
 }

@@ -18,6 +18,11 @@ export class PugRenderer extends Renderer {
   }
 
   render(filePath, data, res) {
+    const locals = res ? res.locals || {} : {};
+    const renderData = {
+      ...locals,
+      ...data
+    };
     if (!this.cacheFunctions[filePath] || CONFIG.ENVIRONMENT !== 'production') {
       if (fs.existsSync(filePath)) {
         this.cacheFunctions[filePath] = pug.compileFile(filePath);
@@ -26,10 +31,10 @@ export class PugRenderer extends Renderer {
       }
     }
     if (res) {
-      return res.send(this.cacheFunctions[filePath](data))
+      return res.send(this.cacheFunctions[filePath](renderData))
     }
  
-    return this.cacheFunctions[filePath](data);
+    return this.cacheFunctions[filePath](renderData);
   }
 }
 

@@ -1,4 +1,5 @@
 import { Controller } from "../../core/Controller.mjs";
+import { HttpError } from "../../core/Error.mjs";
 
 export default class SPAController extends Controller {
   constructor() {
@@ -12,6 +13,10 @@ export default class SPAController extends Controller {
   }
 
   async index(req, res) {
-    res.send(this.render('App.pug', { title: 'Single Page App' }));
+    const extension = req.url.split('.').pop();
+    if (['jpg', 'jpeg', 'png', 'gif'].includes(extension)) {
+      throw new HttpError("Not found");
+    }
+    res.view('App.pug', { title: 'Single Page App' });
   }
 }

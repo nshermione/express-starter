@@ -10,7 +10,7 @@ export const FileUtils = {
   joinUrl(...args) {
     return join(...args).replace(/\\/g, '/');
   },
-  resolveFilePath({ meta, filePath }) {
+  resolvePath({ meta, path: filePath }) {
     if (meta) {
       return path.join(FileUtils.dirname(meta.url), filePath)
     } 
@@ -23,4 +23,12 @@ export const FileUtils = {
     }
     return JSON.parse(fs.readFileSync(realPath).toString());
   },
+}
+
+export const URLUtils = {
+  join(...args) {
+    return join(...args)
+      .replace(":\\", "://")
+      .replace(/\\/g, '/');
+  }, 
 }

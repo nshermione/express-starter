@@ -36,6 +36,10 @@ export class HttpServer extends PlugAndPlay {
     this.app.use(compression());
     this.app.use(cors());
     this.app.options('*', cors());
+    this.app.use((req, res, next) => {
+      res.locals.isDevelopment = CONFIG.ENVIRONMENT === 'development';
+      next();
+    });
   }
   start() {
     let port = this.serverConfig.PORT || 3000;
@@ -43,8 +47,8 @@ export class HttpServer extends PlugAndPlay {
       this.logger.info(`Listening to socket port [${port}] - http://localhost:${port}`);
     });
   }
-  addPublicPath(publicPath) {
-    this.app.use(express.static(publicPath));
+  addPublicPath(publicPath, subPath = '') {
+    this.app.use(subPath, express.static(publicPath));
   }
   addRoutes({ baseUrl = '', routes = [], preRequests = [], postRequests = [], controller }) {
     const router = express.Router();
@@ -62,6 +66,12 @@ export class HttpServer extends PlugAndPlay {
         ...this.catchHandlersException(
           ...pluginPreRequest, 
           ...preRequests, 
+          (req, res, next) => {
+            res.view = (filePath, data) => {
+              controller.render(filePath, data, res);
+            }
+            next();
+          },
           ...route.handlers.map(item => item.bind(controller)), 
           ...pluginPostRequest, 
           ...postRequests

@@ -4,11 +4,12 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "spa-dev": "vite --config src/modules/spa/vite.config.js",
-    "spa-build": "vite build --config src/modules/spa/vite.config.js"
+    "spa:dev": "vite --config src/modules/spa/vite.config.js",
+    "spa:build": "vite build --config src/modules/spa/vite.config.js"
   },
   "devDependencies": {
     "lodash": "^4.17.21",
+    "sass": "^1.63.4",
     "vite": "^4.3.9"
   },
   "dependencies": {
