@@ -6,8 +6,6 @@ function resolve(filePath) {
   return FileUtils.resolvePath({ meta: import.meta, path: filePath });
 }
 
-console.log("rool up options", resolve('./public/js/home.js'))
-
 export default defineConfig({
   plugins: [vue()],
   root: 'src/modules/spa',
