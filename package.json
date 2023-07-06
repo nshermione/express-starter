@@ -4,12 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "spa:dev": "vite --config src/modules/spa/vite.config.js",
     "spa:build": "vite build --config src/modules/spa/vite.config.js"
   },
   "devDependencies": {
     "lodash": "^4.17.21",
-    "sass": "^1.63.4",
     "vite": "^4.3.9"
   },
   "dependencies": {
@@ -27,6 +25,7 @@
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.2.0",
     "pug": "^3.0.2",
+    "sass": "^1.63.6",
     "vue": "^3.3.4",
     "winston": "^3.8.2",
     "xss": "^1.0.14"

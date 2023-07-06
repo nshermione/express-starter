@@ -21,7 +21,11 @@ export const FileUtils = {
     if (meta) {
       realPath = path.join(FileUtils.dirname(meta.url), realPath)
     }
-    return JSON.parse(fs.readFileSync(realPath).toString());
+    try {
+      return JSON.parse(fs.readFileSync(realPath).toString());
+    } catch (e) {
+      return {};
+    }
   },
 }
 
