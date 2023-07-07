@@ -1,9 +1,9 @@
 import fs from "fs";
 import path from "path";
 import { scheduleJob } from "node-schedule";
-import { Logger } from "../core/Logger.mjs";
-import { ModulePlugin } from "../core/Plugin.mjs";
-import { FileUtils } from "../core/Utils.mjs";
+import { Logger } from "../../core/Logger.mjs";
+import { ModulePlugin } from "../../core/Plugin.mjs";
+import { FileUtils } from "../../core/Utils.mjs";
 import { createRequire } from "module";
 
 

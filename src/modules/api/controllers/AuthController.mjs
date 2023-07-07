@@ -1,7 +1,7 @@
 import { Controller } from "../../../core/Controller.mjs";
 import { Crypto } from "../../../core/Crypto.mjs";
 import { HttpError } from "../../../core/Error.mjs";
-import { __ } from "../../../core/Locale.mjs";
+import { __ } from "../../../plugins/http/LocalePlugin.mjs";
 import { CODE } from "../../common/Constants.mjs";
 import { SessionModel } from "../../common/models/SessionModel.mjs";
 import { UserModel } from "../../common/models/UserModel.mjs";

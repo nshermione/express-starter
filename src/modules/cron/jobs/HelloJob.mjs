@@ -1,4 +1,4 @@
-import { Job } from "../../../plugins/CronPlugin.mjs";
+import { Job } from "../../../plugins/module/CronPlugin.mjs";
 
 export class HelloJob extends Job {
 
