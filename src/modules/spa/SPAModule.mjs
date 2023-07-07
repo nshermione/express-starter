@@ -5,7 +5,6 @@ import SPAController from './SPAController.mjs';
 import { HttpServer } from '../../core/HttpServer.mjs';
 import { SPAPlugin } from '../../plugins/http/SPAPlugin.mjs';
 
-
 export class SPAModule extends Module {
   async setup() {
     super.setup();
@@ -29,6 +28,7 @@ export class SPAModule extends Module {
         SPAController
       ],
     });
+
 
     httpServer.start();
   }

@@ -25,9 +25,12 @@
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.2.0",
     "node-schedule": "^2.1.1",
+    "pinia": "^2.1.4",
+    "primevue": "^3.29.2",
     "pug": "^3.0.2",
     "sass": "^1.63.6",
     "vue": "^3.3.4",
+    "vue-router": "^4.2.4",
     "winston": "^3.8.2",
     "xss": "^1.0.14"
   }

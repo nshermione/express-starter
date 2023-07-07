@@ -30,6 +30,7 @@ export class ApiModule extends Module {
 
     // TODO: refresh token, access token
     // TODO: mysql database
+    // TODO: email
 
     httpServer.start();
   }

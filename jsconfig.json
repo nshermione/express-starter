@@ -5,5 +5,5 @@
     "checkJs": true,
   },
   "exclude": ["node_modules"],
-  "include": ["**/*.mjs"],
+  "include": ["**/*.mjs", "src/modules/spa/client/stores/Stores.js", "src/modules/spa/client/stores/AppStore.js"],
 }

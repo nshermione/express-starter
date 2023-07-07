@@ -1,19 +1,28 @@
 <template>
   <div>
-    Single page app
+    {{ appStore.name }}
     <Header></Header>
-    <img :src="'/img/cat.jpg'" />
-    <div class="bgImg"></div>
+    <router-link to="/">Home page</router-link>
+    <router-link to="/about">About page</router-link>
+    <router-view></router-view>
   </div>
 </template>
 
 <script setup>
+
+
 import Header from './Header.vue';
+import AboutVue from './pages/About.vue';
+import HomeVue from './pages/Home.vue';
+import { useAppStore } from './stores/AppStore';
+
+
+const appStore = useAppStore();
 
 </script>
 
-<style lang="scss" scoped>
-  .bgImg {
-    background: url('/img/cat.jpg');
+<style lang="scss">
+  html {
+    font-size: 14 px;
   }
 </style>
