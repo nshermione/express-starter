@@ -24,9 +24,26 @@ export const FileUtils = {
     try {
       return JSON.parse(fs.readFileSync(realPath).toString());
     } catch (e) {
+      console.error(e);
       return {};
     }
   },
+  saveJsonFile({ meta = null, filePath, data }) {
+    let realPath = filePath;
+    if (meta) {
+      realPath = path.join(FileUtils.dirname(meta.url), realPath)
+    }
+    try {
+      let saveData = data;
+      if (typeof data === 'object') {
+        saveData = JSON.stringify(data, null, 2);
+      }
+      return fs.writeFileSync(realPath, saveData); 
+    } catch (e) {
+      console.error(e);
+      return {};
+    } 
+  }
 }
 
 export const URLUtils = {

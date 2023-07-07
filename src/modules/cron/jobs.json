@@ -1,0 +1,11 @@
+{
+  "jobs": [
+    {
+      "job": "HelloJob",
+      "interval": "*/5 * * * * *",
+      "active": true,
+      "trigger": false,
+      "info": {}
+    }
+  ]
+}

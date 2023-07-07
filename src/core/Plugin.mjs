@@ -20,6 +20,10 @@ export class PlugAndPlay {
 }
 
 export class ModulePlugin {
+  constructor() {
+    this.logger = Logger.get(this.constructor.name);
+  }
+
   async setup(module) {
     this.module = module;
   }

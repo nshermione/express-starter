@@ -39,6 +39,22 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "Cron",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "outputCapture": "std",
+      "env": {
+        "NODE_APP": "cron" 
+      },
+      "program": "${workspaceFolder}\\apps\\cron.mjs",
+      "args": [
+        
+      ]
+    },
+    {
+      "type": "node",
+      "request": "launch",
       "name": "SPA",
       "skipFiles": [
         "<node_internals>/**"
