@@ -1,4 +1,4 @@
-import { FileUtils } from '../../core/Utils.mjs';
+import { FileUtils } from '../../core/Utils.js';
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 

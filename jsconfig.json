@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
     "module": "Node16",
+    "moduleResolution": "node16",
     "target": "ES6",
     "checkJs": true,
   },
   "exclude": ["node_modules"],
-  "include": ["**/*.mjs", "src/modules/spa/client/stores/Stores.js", "src/modules/spa/client/stores/AppStore.js"],
+  "include": ["**/*.mjs", "**/*.js"],
 }

@@ -15,7 +15,7 @@
       "env": {
         "NODE_APP": "api"
       },
-      "program": "${workspaceFolder}\\apps\\api.mjs",
+      "program": "${workspaceFolder}\\apps\\api.js",
       "args": [
 
       ]
@@ -31,7 +31,7 @@
       "env": {
         "NODE_APP": "web" 
       },
-      "program": "${workspaceFolder}\\apps\\web.mjs",
+      "program": "${workspaceFolder}\\apps\\web.js",
       "args": [
         
       ]
@@ -47,7 +47,7 @@
       "env": {
         "NODE_APP": "cron" 
       },
-      "program": "${workspaceFolder}\\apps\\cron.mjs",
+      "program": "${workspaceFolder}\\apps\\cron.js",
       "args": [
         
       ]
@@ -64,7 +64,7 @@
         "NODE_APP": "spa",
       },
 
-      "program": "${workspaceFolder}\\apps\\spa.mjs",
+      "program": "${workspaceFolder}\\apps\\spa.js",
       "args": [
         
       ]

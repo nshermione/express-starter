@@ -12,10 +12,7 @@
 
 
 import Header from './Header.vue';
-import AboutVue from './pages/About.vue';
-import HomeVue from './pages/Home.vue';
 import { useAppStore } from './stores/AppStore';
-
 
 const appStore = useAppStore();
 
