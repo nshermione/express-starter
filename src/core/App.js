@@ -7,7 +7,7 @@ export class Application {
     this.logger.info(`Envinronment: ${CONFIG.ENVIRONMENT}`);
     for (const module of modules) {
       this.logger.info(`Load module: ${module.name}`);
-      await (new module()).setup();
+      await module.setup();
     }
   }
 }

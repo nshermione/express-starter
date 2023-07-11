@@ -1,14 +1,9 @@
 <template>
   <div>
-    <!-- <Header></Header>
+    <Header></Header>
     <router-link to="/">Home page</router-link>
-    <router-link to="/about">About page</router-link> -->
-    
-    <BO :menu-items="appStore.menuItems">
-      <template #content>
-        <router-view></router-view>
-      </template>
-    </BO>
+    <router-link to="/about">About page</router-link>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -20,7 +15,7 @@ import { useAppStore } from './stores/AppStore';
 
 const appStore = useAppStore();
 
-</script>
+</script> 
 
 <style lang="scss">
   html {

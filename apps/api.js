@@ -11,6 +11,6 @@ import { CommonModule } from "../src/modules/common/CommonModule.js";
 const app = new Application();
 
 app.start([
-  CommonModule,
-  ApiModule
+  new CommonModule(),
+  new ApiModule()
 ]);

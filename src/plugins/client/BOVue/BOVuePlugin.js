@@ -18,7 +18,7 @@ import Listbox from 'primevue/listbox';
 // BO 
 import BOVue from "./BO.vue";
 
-export const BOPlugin = {
+export const BOVuePlugin = {
   install(app, options) {
     app.use(PrimeVue)
     

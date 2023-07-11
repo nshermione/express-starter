@@ -1,0 +1,8 @@
+extends ../common/layouts/DefaultPage.pug
+
+block append css 
+  if !isDevelopment
+    link(rel="stylesheet" href=assets('client/main.css'))
+    
+block append scripts 
+  script(type="module" src=assets('client/main.js'))

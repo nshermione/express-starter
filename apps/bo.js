@@ -1,11 +1,11 @@
 import { Application } from "../src/core/App.js";
+import { BOModule } from "../src/modules/bo/BOModule.js";
 import { CommonModule } from "../src/modules/common/CommonModule.js";
-import { WebModule } from "../src/modules/web/WebModule.js";
 
 
 const app = new Application();
 
 app.start([
   new CommonModule(),
-  new WebModule() 
+  new BOModule()
 ]);

@@ -69,5 +69,22 @@
         
       ]
     },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "BO",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "outputCapture": "std",
+      "env": {
+        "NODE_APP": "bo",
+      },
+
+      "program": "${workspaceFolder}\\apps\\bo.js",
+      "args": [
+        
+      ]
+    },
   ]
 }

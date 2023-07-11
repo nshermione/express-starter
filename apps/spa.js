@@ -6,6 +6,6 @@ import { SPAModule } from "../src/modules/spa/SPAModule.js";
 const app = new Application();
 
 app.start([
-  CommonModule,
-  SPAModule 
+  new CommonModule(),
+  new SPAModule() 
 ]);

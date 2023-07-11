@@ -5,6 +5,6 @@ import { CronModule } from "../src/modules/cron/CronModule.js";
 const app = new Application();
 
 app.start([
-  CommonModule,
-  CronModule
+  new CommonModule(),
+  new CronModule()
 ]);
