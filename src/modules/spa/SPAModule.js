@@ -10,16 +10,12 @@ export class SPAModule extends Module {
     super.setup();
     const httpServer = new HttpServer(CONFIG.HTTP_SERVER);
 
-    httpServer.addPublicPath(
-      FileUtils.resolvePath({ meta: import.meta, path: './public' })
-    );
-
     httpServer.use(
       new SPAPlugin({
         root: FileUtils.resolvePath({ meta: import.meta, path: './' }), //'src/modules/spa',
-        main: FileUtils.resolvePath({ meta: import.meta, path: './client/main.js' }),
-        manifest: FileUtils.readJsonFile({ meta: import.meta, filePath: './dist/manifest.json' }),
-        dist: FileUtils.resolvePath({ meta: import.meta, path: './dist' })
+        manifest: './dist/manifest.json',
+        dist: './dist',
+        assetFolder: './public' 
       })
     );
 

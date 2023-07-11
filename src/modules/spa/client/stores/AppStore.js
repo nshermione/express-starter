@@ -6,12 +6,16 @@ import { computed, ref } from 'vue'
 // and `Store` (e.g. `useUserStore`, `useCartStore`, `useProductStore`)
 // the first argument is a unique id of the store across your application
 export const useAppStore = defineStore('AppStore', () => {
-  const count = ref(0)
+  // const count = ref(0)
   const name = ref('SPA App')
-  const doubleCount = computed(() => count.value * 2)
-  function increment() {
-    count.value++
-  }
+  // const doubleCount = computed(() => count.value * 2)
+  // function increment() {
+  //   count.value++
+  // }
 
-  return { count, name, doubleCount, increment }
+  const menuItems = ref([
+    { code: 'new', name: 'New', icon: 'pi pi-plus'}
+  ]);
+
+  return { name, menuItems }
 })

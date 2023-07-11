@@ -1,22 +1,22 @@
 import fs from "fs";
+import path from "path";
 import { createServer } from "vite";
 import { CONFIG } from "../../core/Config.js";
 import { HttpServerPlugin } from "../../core/Plugin.js";
 import { FileUtils, URLUtils } from "../../core/Utils.js";
 
 export class SPAPlugin extends HttpServerPlugin {
-  constructor({ manifest, dist, root, main }) {
+  constructor({ manifest, dist, root, assetFolder }) {
     super();
-    this.manifest = manifest;
-    this.dist = dist;
     this.root = root;
-    this.main = main;
+    this.assetFolder = path.join(root, assetFolder);
+    this.manifest = FileUtils.readJsonFile({ filePath: path.join(root, manifest) });
+    this.dist = path.join(root, dist);
     this.clientDevPort = 5137;
   }
 
   async setup(httpServer) {
     super.setup(httpServer);
-
     httpServer.app.use((req, res, next) => {
       res.locals.assets = (path) => {
         if (CONFIG.ENVIRONMENT === 'development') {
@@ -27,12 +27,19 @@ export class SPAPlugin extends HttpServerPlugin {
       }
       next();
     });
-
     if (CONFIG.ENVIRONMENT === 'development') {
+      httpServer.addPublicPath(this.assetFolder);
+      httpServer.app.use((req, res, next) => {
+        if (/^\/@fs.*$/.test(req.url)) {
+          res.sendFile(req.url.replace('/@fs/', ''));
+          return;
+        }
+        next();
+      });
       const server = await createServer({
         root: this.root,
         server: {
-          port: this.clientDevPort ,
+          port: this.clientDevPort,
         },
       });
       await server.listen();

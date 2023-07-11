@@ -1,10 +1,14 @@
 <template>
   <div>
-    {{ appStore.name }}
-    <Header></Header>
+    <!-- <Header></Header>
     <router-link to="/">Home page</router-link>
-    <router-link to="/about">About page</router-link>
-    <router-view></router-view>
+    <router-link to="/about">About page</router-link> -->
+    
+    <BO :menu-items="appStore.menuItems">
+      <template #content>
+        <router-view></router-view>
+      </template>
+    </BO>
   </div>
 </template>
 
