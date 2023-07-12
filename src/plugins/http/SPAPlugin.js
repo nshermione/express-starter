@@ -10,9 +10,12 @@ export class SPAPlugin extends HttpServerPlugin {
     super();
     this.root = root;
     this.assetFolder = path.join(root, assetFolder);
-    this.manifest = FileUtils.readJsonFile({ filePath: path.join(root, manifest) });
+    this.manifestFile = manifest; 
     this.dist = path.join(root, dist);
     this.clientDevPort = 5137;
+    if (CONFIG.ENVIRONMENT !== 'development') {
+      this.manifest = FileUtils.readJsonFile({ filePath: path.join(this.root, this.manifestFile) });
+    }
   }
 
   async setup(httpServer) {
