@@ -13,6 +13,7 @@ import { useAppStore } from "./stores/AppStore.js";
 import { useAppStore } from "./stores/AppStore.js";
 
 const appStore = useAppStore();
+
 </script>
 
 <style lang="scss">

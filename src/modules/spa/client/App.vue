@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Header></Header>
+    <div>{{ appStore.name }}</div>
     <router-link to="/">Home page</router-link>
     <router-link to="/about">About page</router-link>
     <router-view></router-view>
@@ -10,8 +10,7 @@
 <script setup>
 
 
-import Header from './Header.vue';
-import { useAppStore } from './stores/AppStore';
+import { useAppStore } from './stores/AppStore.js';
 
 const appStore = useAppStore();
 

@@ -8,8 +8,14 @@ import { computed, ref } from 'vue'
 export const useAppStore = defineStore('AppStore', () => {
   const name = ref('SPA App')
   const menuItems = ref([
-    { code: 'new', name: 'New', icon: 'pi pi-plus'}
+    { code: 'dashboard', name: 'Dashboard', icon: 'pi pi-home', group: '' },
+    {
+      code: 'user', name: 'User', icon: 'pi pi-user', group: 'User', items: [
+        { code: 'report', name: 'Report', icon: 'pi pi-table' }
+      ]
+    }
   ]);
+  const selectedMenu = ref(menuItems.value.find(item => item.code === 'dashboard'));
 
-  return { name, menuItems }
+  return { name, menuItems, selectedMenu }
 })
