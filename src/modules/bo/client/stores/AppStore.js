@@ -6,16 +6,26 @@ import { computed, ref } from 'vue'
 // and `Store` (e.g. `useUserStore`, `useCartStore`, `useProductStore`)
 // the first argument is a unique id of the store across your application
 export const useAppStore = defineStore('AppStore', () => {
-  const name = ref('SPA App')
+  const name = ref('BO App')
   const menuItems = ref([
-    { code: 'dashboard', name: 'Dashboard', icon: 'pi pi-home', group: '' },
+    { key: 'dashboard', name: 'Dashboard', icon: 'pi pi-home', path: '/dashboard', },
+    { key: 'dashboard', name: 'Dashboard', icon: 'pi pi-home', path: '/dashboard', },
     {
-      code: 'user', name: 'User', icon: 'pi pi-user', group: 'User', items: [
-        { code: 'report', name: 'Report', icon: 'pi pi-table' }
+      key: 'user', name: 'User', icon: 'pi pi-user', items: [
+        { key: 'report', name: 'Report', icon: 'pi pi-table', path: '/user/report' },
+        { key: 'report', name: 'Report', icon: 'pi pi-table', path: '/user/report' },
+        { key: 'report', name: 'Report', icon: 'pi pi-table', path: '/user/report' },
       ]
-    }
-  ]);
-  const selectedMenu = ref(menuItems.value.find(item => item.code === 'dashboard'));
+    },
+    {
+      key: 'user', name: 'User', icon: 'pi pi-user', items: [
+        { key: 'report', name: 'Report', icon: 'pi pi-table', path: '/user/report' },
+        { key: 'report', name: 'Report', icon: 'pi pi-table', path: '/user/report' },
+        { key: 'report', name: 'Report', icon: 'pi pi-table', path: '/user/report' },
+      ]
+    },
 
-  return { name, menuItems, selectedMenu }
+  ]);
+
+  return { name, menuItems  }
 })

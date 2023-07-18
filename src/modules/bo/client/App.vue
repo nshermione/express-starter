@@ -1,7 +1,7 @@
 import { useAppStore } from "./stores/AppStore.js";
 <template>
   <div>
-    <BO :menu-items="appStore.menuItems">
+    <BO :menu-items="appStore.menuItems" :name="appStore.name">
       <template #content>
         <router-view></router-view>
       </template>
