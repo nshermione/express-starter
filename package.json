@@ -4,9 +4,13 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "spa:build": "vite build --config src/modules/spa/vite.config.js"
+    "spa:build": "vite build --config src/modules/spa/vite.config.js",
+    "bo:build:windows": "SET ENVIRONMENT=production && vite build --config src/modules/bo/vite.config.js",
+    "bo:build:linux": "ENVIRONMENT=production vite build --config src/modules/bo/vite.config.js"
   },
   "devDependencies": {
+    "@fullhuman/postcss-purgecss": "^5.0.0",
+    "@fullhuman/vue-cli-plugin-purgecss": "^5.0.0",
     "lodash": "^4.17.21",
     "vite": "^4.3.9"
   },

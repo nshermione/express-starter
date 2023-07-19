@@ -10,7 +10,7 @@
       </div>
       <div class="flex flex-column transition-duration-300 overflow-hidden relative child"
         :style="{ height: item.height }" v-if="item.items" ref="expandBlocks" :data-key="item.key">
-        <div v-for="child of item.items" class="flex align-items-center pl-6 py-3 cursor-pointer hover:bg-cyan-100">
+        <div v-for="child of item.items" class="flex align-items-center pl-6 py-3 cursor-pointer hover:bg-cyan-100" @click="onMenuClick(child)">
           <i :class="child.icon" class="mr-4" />
           <div>{{ child.name }}</div>
         </div>
@@ -21,9 +21,11 @@
 
 <script setup>
 import { computed, ref } from "vue";
+import { useRouter } from "vue-router";
 
 const props = defineProps(['menuItems'])
 const menuItems = ref(props.menuItems);
+const router = useRouter();
 
 for (const item of menuItems.value) {
   item.height = 0;
@@ -42,6 +44,9 @@ function onMenuClick(item) {
     } else {
       item.height = 0;
     }
+  }
+  if (item.path) {
+    router.push(item.path);
   }
 }
 </script>

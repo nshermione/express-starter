@@ -6,5 +6,5 @@
     "checkJs": true,
   },
   "exclude": ["node_modules"],
-  "include": ["**/*.mjs", "**/*.js"],
+  "include": ["**/*.mjs", "**/*.js", "**/*.vue", "src/modules/bo/postcss.config.cjs"],
 }

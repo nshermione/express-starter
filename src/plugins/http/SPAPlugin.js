@@ -25,7 +25,7 @@ export class SPAPlugin extends HttpServerPlugin {
         if (CONFIG.ENVIRONMENT === 'development') {
           return URLUtils.join(`http://localhost:${this.clientDevPort}`, path);
         } else {
-          return this.manifest[path].file;
+          return '/' + this.manifest[path].file;
         }
       }
       next();
