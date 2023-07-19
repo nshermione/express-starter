@@ -13,9 +13,7 @@ import "./BOStyle.scss";
 // Library
 import PrimeVue from 'primevue/config';
 import Button from "primevue/button";
-import Menu from 'primevue/menu';
 import Sidebar from "primevue/sidebar";
-import Listbox from 'primevue/listbox';
 import ScrollPanel from 'primevue/scrollpanel';
 // BO 
 import BOVue from './BO.vue';

@@ -32,21 +32,46 @@ for (const item of menuItems.value) {
 }
 const expandBlocks = ref([])
 
+router.beforeEach(async (to, from) => {
+  for (const item of menuItems.value) {
+    item.items = item.items || [];
+    let founded = false;
+
+    for (const child of item.items) {
+      if (child.path && child.path === to.path) {
+        expand(item);
+        founded = true;
+        break;
+      }
+    }
+
+    if (founded) break;
+  }
+})
+
+
+/** METHODS */
+
 function onMenuClick(item) {
   if (item.items) {
     item.expanded = !item.expanded;
     if (item.expanded) {
-      for (const block of expandBlocks.value) {
-        if (block.getAttribute('data-key') === item.key) {
-          item.height = `${block.scrollHeight}px`;
-        }
-      }
+      expand(item);
     } else {
       item.height = 0;
     }
   }
   if (item.path) {
     router.push(item.path);
+  }
+}
+
+function expand(item) {
+  item.expanded = true;
+  for (const block of expandBlocks.value) {
+    if (block.getAttribute('data-key') === item.key) {
+      item.height = `${block.scrollHeight}px`;
+    }
   }
 }
 </script>
