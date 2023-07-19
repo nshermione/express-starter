@@ -18,10 +18,11 @@ export const useAppStore = defineStore('AppStore', () => {
       ]
     },
     {
-      key: 'user', name: 'User', icon: 'pi pi-user', items: [
+      key: 'user1', name: 'User', icon: 'pi pi-user', items: [
         { key: 'report', name: 'Report', icon: 'pi pi-table', path: '/user/report' },
         { key: 'report', name: 'Report', icon: 'pi pi-table', path: '/user/report' },
         { key: 'report', name: 'Report', icon: 'pi pi-table', path: '/user/report' },
+        { key: 'about', name: 'Report', icon: 'pi pi-table', path: '/about' },
       ]
     },
 

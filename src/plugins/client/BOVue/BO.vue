@@ -5,6 +5,7 @@
     </template>
     <Drawer :menuItems="props.menuItems"></Drawer>
   </Sidebar>
+  <RouterView class="main"></RouterView>
 </template>
 
 <script setup>
@@ -12,5 +13,9 @@ const props = defineProps(['menuItems', 'name'])
 
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.main {
+  margin-left: 20rem;
+}
+</style>
 
