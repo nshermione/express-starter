@@ -8,7 +8,7 @@
         </div>
         <i class="pi" :class="{ 'pi-angle-down': item.expanded, 'pi-angle-up': !item.expanded }" v-if="item.items" />
       </div>
-      <div class="flex flex-column transition-duration-300 overflow-hidden relative child"
+      <div class="flex flex-column overflow-hidden relative child"
         :style="{ height: item.height }" v-if="item.items" ref="expandBlocks" :data-key="item.key">
         <div v-for="child of item.items" class="flex align-items-center pl-6 py-3 cursor-pointer hover:bg-cyan-100" @click="onMenuClick(child)">
           <i :class="child.icon" class="mr-4" />
@@ -34,7 +34,7 @@ const expandBlocks = ref([])
 
 router.beforeEach(async (to, from) => {
   for (const item of menuItems.value) {
-    item.items = item.items || [];
+    if (!item.items) continue;
     let founded = false;
 
     for (const child of item.items) {
