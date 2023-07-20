@@ -8,21 +8,15 @@ import { computed, ref } from 'vue'
 export const useAppStore = defineStore('AppStore', () => {
   const name = ref('BO App')
   const menuItems = ref([
-    { key: 'dashboard', name: 'Dashboard', icon: 'pi pi-home', path: '/dashboard', },
-    { key: 'dashboard', name: 'Dashboard', icon: 'pi pi-home', path: '/dashboard', },
+    { key: 'dashboard', name: 'Dashboard', icon: 'pi pi-home', path: '/', },
     {
       key: 'user', name: 'User', icon: 'pi pi-user', items: [
-        { key: 'report', name: 'Report', icon: 'pi pi-table', path: '/user/report' },
-        { key: 'report', name: 'Report', icon: 'pi pi-table', path: '/user/report' },
         { key: 'report', name: 'Report', icon: 'pi pi-table', path: '/user/report' },
       ]
     },
     {
-      key: 'user1', name: 'User', icon: 'pi pi-user', items: [
-        { key: 'report', name: 'Report', icon: 'pi pi-table', path: '/user/report' },
-        { key: 'report', name: 'Report', icon: 'pi pi-table', path: '/user/report' },
-        { key: 'report', name: 'Report', icon: 'pi pi-table', path: '/user/report' },
-        { key: 'about', name: 'About', icon: 'pi pi-table', path: '/about' },
+      key: 'settings', name: 'Settings', icon: 'pi pi-cog', items: [
+        { key: 'about', name: 'About', icon: 'pi pi-info', path: '/about' },
       ]
     },
 
