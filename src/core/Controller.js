@@ -6,7 +6,7 @@ export class Controller {
   constructor(meta, config = {}) {
     this.meta = meta;
     this.renderer = this.createRenderer(config || {
-      renderer: RENDER_TYPE.PUG
+      rendererType: RENDER_TYPE.PUG
     });
     if (this.meta.url) {
       this.__dirname = FileUtils.dirname(this.meta.url);
@@ -14,7 +14,10 @@ export class Controller {
   }
 
   createRenderer(config = {}) {
-    const rendererType = config.renderer || RENDER_TYPE.PUG;
+    if (config.renderer) {
+      return config.renderer;
+    }
+    const rendererType = config.rendererType || RENDER_TYPE.PUG;
     const RENDERERS = {
       [RENDER_TYPE.PUG]: PugRenderer,
     }

@@ -4,15 +4,19 @@ import { createServer } from "vite";
 import { CONFIG } from "../../core/Config.js";
 import { HttpServerPlugin } from "../../core/Plugin.js";
 import { FileUtils, URLUtils } from "../../core/Utils.js";
+import { Renderer } from "../../core/Renderer.js";
+import { renderToString } from "vue/server-renderer";
+import { createSSRApp } from "vue";
 
 export class SPAPlugin extends HttpServerPlugin {
-  constructor({ manifest, dist, root, assetFolder }) {
+  constructor({ manifest, dist, root, assetFolder, isSSR = false }) {
     super();
     this.root = root;
     this.assetFolder = path.join(root, assetFolder);
     this.manifestFile = manifest; 
     this.dist = path.join(root, dist);
     this.clientDevPort = 5137;
+    this.isSSR = isSSR;
     if (CONFIG.ENVIRONMENT !== 'development') {
       this.manifest = FileUtils.readJsonFile({ filePath: path.join(this.root, this.manifestFile) });
     }
@@ -54,5 +58,50 @@ export class SPAPlugin extends HttpServerPlugin {
       }
       httpServer.addPublicPath(this.dist);
     }
+  }
+}
+
+export class VueSSRRenderer extends Renderer {
+  constructor(config) {
+    super(config);
+  }
+
+  async render(filePath, data, res) {
+    const clientJS = res.locals.assets('client/main.js');
+    const appVueFile = res.locals.assets('client/App.vue');
+
+
+    const appVue = await import(appVueFile);
+    console.log('appVue', appVue);
+
+    const app = createSSRApp({
+      data: () => {
+        return { title: 'ABC' };
+      },
+      template: /*html*/`
+
+      `
+    })
+    
+    renderToString(app).then((html) => {
+      console.log(html);
+      res.send(/*html*/`
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <meta http-equiv="X-UA-Compatible" content="IE=edge">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title> {{ title }} </title>
+        </head>
+        <body class="body"> 
+          <div id="app">
+            ${html}
+          </div>
+          <script type="module" src="${clientJS}"></script>
+        </body>
+      </html>
+      `);
+    })
   }
 }

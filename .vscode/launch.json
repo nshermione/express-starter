@@ -39,6 +39,22 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "Web SSR",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "outputCapture": "std",
+      "env": {
+        "NODE_APP": "web-ssr" 
+      },
+      "program": "${workspaceFolder}\\apps\\web-ssr.js",
+      "args": [
+        
+      ]
+    },
+    {
+      "type": "node",
+      "request": "launch",
       "name": "Cron",
       "skipFiles": [
         "<node_internals>/**"
