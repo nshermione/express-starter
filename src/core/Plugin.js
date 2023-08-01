@@ -39,10 +39,10 @@ export class HttpServerPlugin {
   }
 
   async preRequest(req, res, next) {
-
+    next();
   }
 
   async postRequest(req, res, next) {
-
+    next();
   }
 }

@@ -68,7 +68,12 @@ export class HttpServer extends PlugAndPlay {
           ...preRequests, 
           (req, res, next) => {
             res.view = (filePath, data) => {
-              controller.render(filePath, data, res);
+              controller.render(filePath, data, req, res);
+            }
+            res.srrView = () => {
+              if (controller.renderer) {
+                controller.renderer.render(req, res);
+              }
             }
             next();
           },

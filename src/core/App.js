@@ -6,8 +6,8 @@ export class Application {
     this.logger = Logger.get(this.constructor.name);
     this.logger.info(`Envinronment: ${CONFIG.ENVIRONMENT}`);
     for (const module of modules) {
-      this.logger.info(`Load module: ${module.name}`);
       await module.setup();
+      this.logger.info(`Loaded module: ${module.constructor.name}`);
     }
   }
 }

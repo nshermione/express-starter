@@ -36,19 +36,21 @@ export class SPAPlugin extends HttpServerPlugin {
     });
     if (CONFIG.ENVIRONMENT === 'development') {
       httpServer.addPublicPath(this.assetFolder);
-      httpServer.app.use((req, res, next) => {
-        if (/^\/@fs.*$/.test(req.url)) {
-          res.sendFile(req.url.replace('/@fs/', ''));
-          return;
-        }
-        next();
-      });
       const server = await createServer({
         root: this.root,
         server: {
           port: this.clientDevPort,
         },
       });
+      httpServer.app.use((req, res, next) => {
+        res.locals.vite = server;
+        if (/^\/@fs.*$/.test(req.url)) {
+          res.sendFile(req.url.replace('/@fs/', ''));
+          return;
+        }
+        next();
+      });
+
       await server.listen();
       this.logger.info("Start SPA client dev server");
       server.printUrls();
@@ -66,41 +68,31 @@ export class VueSSRRenderer extends Renderer {
     super(config);
   }
 
-  async render(filePath, data, res) {
-    const clientJS = res.locals.assets('client/main.js');
-    const appVueFile = res.locals.assets('client/App.vue');
+  async render(req, res) {
+    const clientJS = res.locals.assets('client/app.js');
+    const createApp = (await res.locals.vite.ssrLoadModule('main.js')).createApp
+    const { app, router } = createApp();
+    await router.push(req.url)
+    await router.isReady()
 
-
-    const appVue = await import(appVueFile);
-    console.log('appVue', appVue);
-
-    const app = createSSRApp({
-      data: () => {
-        return { title: 'ABC' };
-      },
-      template: /*html*/`
-
-      `
-    })
-    
-    renderToString(app).then((html) => {
-      console.log(html);
-      res.send(/*html*/`
-      <!DOCTYPE html>
-      <html lang="en">
-        <head>
-          <meta charset="UTF-8">
-          <meta http-equiv="X-UA-Compatible" content="IE=edge">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title> {{ title }} </title>
-        </head>
-        <body class="body"> 
-          <div id="app">
-            ${html}
-          </div>
-          <script type="module" src="${clientJS}"></script>
-        </body>
-      </html>
+    renderToString(app, {}).then((html) => {
+      console.log(html.replace('<div><!--[--><!---->', '').replace('<!--]-->', ''));
+      res.status(200).set({ 'Content-Type': 'text/html' }).end(/*html*/`
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> {{ title }} </title>
+  </head>
+  <body class="body"> 
+    <div id="app">
+      ${html}
+    </div>
+    <script type="module" src="${clientJS}"></script>
+  </body>
+</html>
       `);
     })
   }

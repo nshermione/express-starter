@@ -1,7 +1,7 @@
-import { Controller } from "../../core/Controller.js";
-import { HttpError } from "../../core/Error.js";
-import { Renderer } from "../../core/Renderer.js";
-import { VueSSRRenderer } from "../../plugins/http/SPAPlugin.js";
+import { Controller } from "../../../core/Controller.js";
+import { HttpError } from "../../../core/Error.js";
+import { Renderer } from "../../../core/Renderer.js";
+import { VueSSRRenderer } from "../../../plugins/http/SPAPlugin.js";
 
 export default class WebSSRController extends Controller {
   constructor() {
@@ -18,9 +18,9 @@ export default class WebSSRController extends Controller {
 
   async index(req, res) {
     const extension = req.url.split('.').pop();
-    if (['jpg', 'jpeg', 'png', 'gif'].includes(extension)) {
+    if (['jpg', 'jpeg', 'png', 'gif', 'ico'].includes(extension)) {
       throw new HttpError("Not found");
     }
-    res.view('client/App.vue', { title: 'Web SSR' });
+    res.srrView();
   }
 }

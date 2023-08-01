@@ -18,8 +18,13 @@ export default defineConfig({
       },
       // overwrite default .html entry
       input: {
-        main: resolve('./client/main.js')
+        app: resolve('./client/app.js')
       }
     },
+  },
+  ssr: {
+    noExternal: [
+      // this package has uncompiled .vue files
+    ],
   },
 })

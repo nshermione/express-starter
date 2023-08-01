@@ -16,8 +16,8 @@ import Button from "primevue/button";
 import Sidebar from "primevue/sidebar";
 import ScrollPanel from 'primevue/scrollpanel';
 // BO 
-import BOVue from './BO.vue';
 import DrawerVue from './Drawer.vue';
+import BOVue from './BO.vue';
 
 
 export const BOVuePlugin = {
@@ -28,8 +28,8 @@ export const BOVuePlugin = {
       Button,
       Sidebar,
       ScrollPanel,
+      Drawer: DrawerVue,
       BO: BOVue,
-      Drawer: DrawerVue
     }
     const names = Object.keys(components);
     for (const name of names) {

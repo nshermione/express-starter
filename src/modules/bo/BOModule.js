@@ -10,7 +10,7 @@ export class BOModule extends Module {
     super.setup();
     const httpServer = new HttpServer(CONFIG.HTTP_SERVER);
 
-    httpServer.use(
+    await httpServer.use(
       new SPAPlugin({
         root: FileUtils.resolvePath({ meta: import.meta, path: './' }), //'src/modules/spa',
         manifest: './dist/manifest.json',

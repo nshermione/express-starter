@@ -22,7 +22,6 @@
 <script setup>
 import { computed, ref } from "vue";
 import { useRouter } from "vue-router";
-
 const props = defineProps(['menuItems'])
 const menuItems = ref(props.menuItems);
 const router = useRouter();

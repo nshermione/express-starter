@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from "vue-router";
+import { createMemoryHistory, createRouter, createWebHistory } from "vue-router";
 import Notfound from "./pages/Notfound.vue"
 import DashboardVue from "./pages/Dashboard.vue";
 import AboutVue from "./pages/About.vue";
@@ -11,6 +11,6 @@ const routes = [
 ]
 
 export const router = createRouter({
-  history: createWebHistory(),
+  history: createMemoryHistory(),
   routes,
 })

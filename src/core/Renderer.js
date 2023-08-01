@@ -17,7 +17,7 @@ export class PugRenderer extends Renderer {
     this.cacheFunctions = {};
   }
 
-  render(filePath, data, res) {
+  render(filePath, data, req, res) {
     const locals = res ? res.locals || {} : {};
     const renderData = {
       ...locals,
@@ -31,6 +31,9 @@ export class PugRenderer extends Renderer {
       }
     }
     if (res) {
+      if (!this.cacheFunctions[filePath]) {
+        return res.send('');
+      }
       return res.send(this.cacheFunctions[filePath](renderData))
     }
  
